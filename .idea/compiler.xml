@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="gmall-common-util" />
         <module name="demo" />
+        <module name="gmall-common-util" />
         <module name="gmall-web-util" />
         <module name="gmall-user" />
         <module name="gmall-api" />
@@ -27,10 +27,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="demo" options="-parameters" />
-      <module name="gmall-common-util" options="-parameters" />
-      <module name="gmall-service-util" options="-parameters" />
-      <module name="gmall-user" options="-parameters" />
-      <module name="gmall-web-util" options="-parameters" />
+      <module name="gmall-common-util" options="" />
+      <module name="gmall-service-util" options="" />
+      <module name="gmall-user" options="" />
+      <module name="gmall-web-util" options="" />
     </option>
   </component>
 </project>
