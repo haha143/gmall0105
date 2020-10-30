@@ -1,12 +1,12 @@
 package com.auguigu.gmall.user.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.auguigu.gmall.bean.UmsMember;
 import com.auguigu.gmall.bean.UmsMemberReceiveAddress;
 import com.auguigu.gmall.service.UserService;
 import com.auguigu.gmall.user.mapper.UmsMemberReceiveAddressMapper;
 import com.auguigu.gmall.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

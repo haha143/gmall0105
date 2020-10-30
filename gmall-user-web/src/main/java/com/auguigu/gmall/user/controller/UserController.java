@@ -1,5 +1,6 @@
 package com.auguigu.gmall.user.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.auguigu.gmall.bean.UmsMember;
 import com.auguigu.gmall.bean.UmsMemberReceiveAddress;
 import com.auguigu.gmall.service.UserService;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    @Autowired
+
+    @Reference
     UserService userService;
 
     @RequestMapping("index")
