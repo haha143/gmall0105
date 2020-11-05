@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="jdbc:mysql://localhost:3306/gamll?serverTimezone=GMT%2B8" uuid="c03f132f-8f91-42aa-abb2-ed89817aea39">
+    <data-source source="LOCAL" name="aliyun-gmall" uuid="3139f859-e034-4486-94bb-491509598b26">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/gamll?serverTimezone=GMT%2B8</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/gmall?serverTimezone=GMT%2B8</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="localhost-gmall" uuid="f1694ef2-5bf8-4733-954f-25657759467e">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/gmall?serverTimezone=GMT%2B8</jdbc-url>
     </data-source>
   </component>
 </project>
