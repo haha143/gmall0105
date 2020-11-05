@@ -1,0 +1,7 @@
+com\auguigu\gmall\bean\PmsBaseCatalog2.class
+com\auguigu\gmall\bean\UmsMemberReceiveAddress.class
+com\auguigu\gmall\bean\UmsMember.class
+com\auguigu\gmall\bean\PmsBaseCatalog3.class
+com\auguigu\gmall\bean\PmsBaseCatalog1.class
+com\auguigu\gmall\service\CatalogService.class
+com\auguigu\gmall\service\UserService.class

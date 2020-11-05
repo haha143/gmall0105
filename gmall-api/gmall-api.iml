@@ -44,5 +44,6 @@
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-spring:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-extra:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-spring-boot-autoconfigure:2.0.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.16.10" level="project" />
   </component>
 </module>
