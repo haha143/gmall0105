@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -9,11 +10,11 @@
         <module name="demo" />
         <module name="gmall-manage-web" />
         <module name="gmall-common-util" />
+        <module name="gmall-web-util" />
         <module name="gmall-manage-service" />
         <module name="gmall-user" />
         <module name="gmall-user-web" />
         <module name="gmall-api" />
-        <module name="gmall-web-util" />
         <module name="gmall-service-util" />
         <module name="gmall-user-service" />
       </profile>
