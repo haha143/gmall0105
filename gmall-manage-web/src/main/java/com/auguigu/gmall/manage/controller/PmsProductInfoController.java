@@ -21,7 +21,7 @@ public class PmsProductInfoController {
     //获取所有的商铺信息
     @RequestMapping("/spuList")
     @ResponseBody
-    public List<PmsProductInfo> spuList(@RequestParam String catalog3Id){
+    public List<PmsProductInfo> spuList(@RequestParam Integer catalog3Id){
         List<PmsProductInfo> pmsProductInfoList= pmsProductInfoService.spuList(catalog3Id);
         return pmsProductInfoList;
     }
@@ -30,7 +30,7 @@ public class PmsProductInfoController {
     @RequestMapping("/saveSpuInfo")
     @ResponseBody
     public String saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo){
-//        pmsProductInfoService.saveSpuInfo(pmsProductInfo);
+        pmsProductInfoService.saveSpuInfo(pmsProductInfo);
         return "insert success";
     }
 

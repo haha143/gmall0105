@@ -1,5 +1,9 @@
 package com.auguigu.gmall.bean;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -8,28 +12,15 @@ import java.io.Serializable;
  * @param
  * @return
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PmsBaseSaleAttr implements Serializable {
 
     @Id
     @Column
-    String id ;
+    Integer id ;
 
     @Column
     String name;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

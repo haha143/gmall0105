@@ -28,7 +28,7 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public List<PmsBaseCatalog2> getCatalog2(String  catalog1Id) {
+    public List<PmsBaseCatalog2> getCatalog2(Integer  catalog1Id) {
         PmsBaseCatalog2 pmsBaseCatalog2=new PmsBaseCatalog2();
         pmsBaseCatalog2.setCatalog1Id(catalog1Id);
         List<PmsBaseCatalog2>pmsBaseCatalog2List=pmsBaseCatalog2Mapper.select(pmsBaseCatalog2);
@@ -36,7 +36,7 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
-    public List<PmsBaseCatalog3> getCatalog3(String catalog2Id) {
+    public List<PmsBaseCatalog3> getCatalog3(Integer catalog2Id) {
         PmsBaseCatalog3 pmsBaseCatalog3=new PmsBaseCatalog3();
         pmsBaseCatalog3.setCatalog2Id(catalog2Id);
         List<PmsBaseCatalog3>pmsBaseCatalog3List=pmsBaseCatalog3Mapper.select(pmsBaseCatalog3);

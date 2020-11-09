@@ -19,14 +19,14 @@ public class PmsBaseAttrValueController {
 
     @RequestMapping("/getAttrValueList")
     @ResponseBody
-    public List<PmsBaseAttrValue> getAttrValueList(@RequestParam String  attrId){
+    public List<PmsBaseAttrValue> getAttrValueList(@RequestParam Integer  attrId){
         List<PmsBaseAttrValue> pmsBaseAttrValueList= pmsBaseAttrValueService.getAttrValueList(attrId);
         return pmsBaseAttrValueList;
     }
 
     @RequestMapping("/deleteAttrValueById")
     @ResponseBody
-    public String  deleteAttrValueById(@RequestParam String  id){
+    public String  deleteAttrValueById(@RequestParam Integer  id){
         PmsBaseAttrValue pmsBaseAttrValue=new PmsBaseAttrValue();
         pmsBaseAttrValue.setId(id);
         pmsBaseAttrValueService.deleteAttrValueById(id);

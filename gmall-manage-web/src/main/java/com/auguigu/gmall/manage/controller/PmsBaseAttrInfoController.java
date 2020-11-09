@@ -21,7 +21,7 @@ public class PmsBaseAttrInfoController {
 
     @RequestMapping("/attrInfoList")
     @ResponseBody
-    public List<PmsBaseAttrInfo> getCatalog3(@RequestParam String  catalog3Id){
+    public List<PmsBaseAttrInfo> getCatalog3(@RequestParam Integer  catalog3Id){
         List<PmsBaseAttrInfo> pmsBaseAttrInfoList= pmsBaseAttrInfoService.getCatalog3(catalog3Id);
         return pmsBaseAttrInfoList;
     }

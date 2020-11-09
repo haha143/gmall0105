@@ -21,7 +21,7 @@ public class PmsBaseAttrInfoServiceImpl implements PmsBaseAttrInfoService {
     PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
 
     @Override
-    public List<PmsBaseAttrInfo> getCatalog3(String catalog3Id) {
+    public List<PmsBaseAttrInfo> getCatalog3(Integer catalog3Id) {
         PmsBaseAttrInfo pmsBaseAttrInfo=new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
         List<PmsBaseAttrInfo>pmsBaseAttrInfoList= pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
@@ -32,7 +32,7 @@ public class PmsBaseAttrInfoServiceImpl implements PmsBaseAttrInfoService {
     public int saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo) {
         List<PmsBaseAttrValue>pmsBaseAttrValueList=pmsBaseAttrInfo.getAttrValueList();
         //属性id为空，说明为新增属性
-        if(StringUtil.isEmpty(pmsBaseAttrInfo.getId())){
+        if(pmsBaseAttrInfo.getId()!=null){
             pmsBaseAttrInfoMapper.insertSelective(pmsBaseAttrInfo);
         }
         //属性id不为空，说明为修改属性或者是在已经存在的属性里面进行新增或修改属性值的操作

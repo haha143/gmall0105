@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId) {
+    public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(Integer memberId) {
         //方法一
         /*Example e=new Example(UmsMemberReceiveAddress.class);//是谁的泛型
         e.createCriteria().andEqualTo(memberId);//设置是根据那个属性进行查询*/

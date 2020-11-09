@@ -6,7 +6,7 @@ import com.auguigu.gmall.bean.PmsBaseAttrValue;
 import java.util.List;
 
 public interface PmsBaseAttrValueService {
-    List<PmsBaseAttrValue> getAttrValueList(String attrId);
+    List<PmsBaseAttrValue> getAttrValueList(Integer attrId);
 
-    int  deleteAttrValueById(String id);
+    int  deleteAttrValueById(Integer id);
 }

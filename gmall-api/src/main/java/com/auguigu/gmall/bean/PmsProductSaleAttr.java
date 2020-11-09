@@ -1,23 +1,30 @@
 package com.auguigu.gmall.bean;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PmsProductSaleAttr implements Serializable {
 
     @Id
     @Column
-    String id ;
+    Integer id ;
 
     @Column
-    String productId;
+    Integer productId;
 
     @Column
-    String saleAttrId;
+    Integer saleAttrId;
 
     @Column
     String saleAttrName;
@@ -25,44 +32,4 @@ public class PmsProductSaleAttr implements Serializable {
 
     @Transient
     List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public String getSaleAttrId() {
-        return saleAttrId;
-    }
-
-    public void setSaleAttrId(String saleAttrId) {
-        this.saleAttrId = saleAttrId;
-    }
-
-    public String getSaleAttrName() {
-        return saleAttrName;
-    }
-
-    public void setSaleAttrName(String saleAttrName) {
-        this.saleAttrName = saleAttrName;
-    }
-
-    public List<PmsProductSaleAttrValue> getPmsProductSaleAttrValueList() {
-        return pmsProductSaleAttrValueList;
-    }
-
-    public void setPmsProductSaleAttrValueList(List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList) {
-        this.pmsProductSaleAttrValueList = pmsProductSaleAttrValueList;
-    }
 }
