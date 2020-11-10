@@ -32,5 +32,12 @@ public class PmsBaseAttrValueServiceImpl implements PmsBaseAttrValueService {
         return pmsBaseAttrValueMapper.delete(pmsBaseAttrValue);
     }
 
+    @Override
+    public int deleteAttrValueByAttrId(Integer id) {
+        PmsBaseAttrValue pmsBaseAttrValue=new PmsBaseAttrValue();
+        pmsBaseAttrValue.setAttrId(id);
+        return pmsBaseAttrValueMapper.delete(pmsBaseAttrValue);
+    }
+
 
 }

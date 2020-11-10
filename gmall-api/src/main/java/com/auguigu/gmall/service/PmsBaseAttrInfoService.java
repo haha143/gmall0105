@@ -10,4 +10,5 @@ public interface PmsBaseAttrInfoService {
     
     int saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo);
 
+    int deleteAttrInfoById(Integer id);
 }

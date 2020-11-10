@@ -8,4 +8,6 @@ public interface PmsProductInfoService {
     List<PmsProductInfo>spuList(Integer catalog3Id);
 
     int saveSpuInfo(PmsProductInfo pmsProductInfo);
+
+    int deleteSpuById(Integer id);
 }

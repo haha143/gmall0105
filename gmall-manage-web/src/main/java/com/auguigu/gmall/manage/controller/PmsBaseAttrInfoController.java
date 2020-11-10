@@ -2,7 +2,6 @@ package com.auguigu.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.auguigu.gmall.bean.PmsBaseAttrInfo;
-import com.auguigu.gmall.bean.PmsBaseAttrValue;
 import com.auguigu.gmall.service.PmsBaseAttrInfoService;
 import com.auguigu.gmall.service.PmsBaseAttrValueService;
 import org.springframework.stereotype.Controller;
@@ -32,5 +31,15 @@ public class PmsBaseAttrInfoController {
     public String saveAttrInfo(@RequestBody PmsBaseAttrInfo  pmsBaseAttrInfo){
         pmsBaseAttrInfoService.saveAttrInfo(pmsBaseAttrInfo);
         return "success";
+    }
+
+    @RequestMapping("/deleteAttrInfoById")
+    @ResponseBody
+    public String deleteAttrInfoById(@RequestParam Integer id){
+        pmsBaseAttrInfoService.deleteAttrInfoById(id);
+        pmsBaseAttrValueService.deleteAttrValueByAttrId(id);
+        System.out.println(id);
+        System.out.println("已经执行了");
+        return "delete success";
     }
 }

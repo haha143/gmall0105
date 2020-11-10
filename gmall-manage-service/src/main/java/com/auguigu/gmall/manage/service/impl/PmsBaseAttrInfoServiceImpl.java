@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.util.StringUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,6 +26,12 @@ public class PmsBaseAttrInfoServiceImpl implements PmsBaseAttrInfoService {
         PmsBaseAttrInfo pmsBaseAttrInfo=new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
         List<PmsBaseAttrInfo>pmsBaseAttrInfoList= pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
+        for(PmsBaseAttrInfo pmsBaseAttrInfo1:pmsBaseAttrInfoList){
+            PmsBaseAttrValue pmsBaseAttrValue=new PmsBaseAttrValue();
+            pmsBaseAttrValue.setAttrId(pmsBaseAttrInfo1.getId());
+            List<PmsBaseAttrValue> pmsBaseAttrValueList=pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
+            pmsBaseAttrInfo1.setAttrValueList(pmsBaseAttrValueList);
+        }
         return pmsBaseAttrInfoList;
     }
 
@@ -32,7 +39,7 @@ public class PmsBaseAttrInfoServiceImpl implements PmsBaseAttrInfoService {
     public int saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo) {
         List<PmsBaseAttrValue>pmsBaseAttrValueList=pmsBaseAttrInfo.getAttrValueList();
         //属性id为空，说明为新增属性
-        if(pmsBaseAttrInfo.getId()!=null){
+        if(pmsBaseAttrInfo.getId()==null){
             pmsBaseAttrInfoMapper.insertSelective(pmsBaseAttrInfo);
         }
         //属性id不为空，说明为修改属性或者是在已经存在的属性里面进行新增或修改属性值的操作
@@ -51,6 +58,13 @@ public class PmsBaseAttrInfoServiceImpl implements PmsBaseAttrInfoService {
             pmsBaseAttrValueMapper.insertSelective(pmsBaseAttrValue);
         }
         return 1;
+    }
+
+    @Override
+    public int deleteAttrInfoById(Integer id) {
+        PmsBaseAttrInfo pmsBaseAttrInfo=new PmsBaseAttrInfo();
+        pmsBaseAttrInfo.setId(id);
+        return pmsBaseAttrInfoMapper.delete(pmsBaseAttrInfo);
     }
 
 

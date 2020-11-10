@@ -52,4 +52,11 @@ public class PmsProductInfoServiceImpl implements PmsProductInfoService {
         }
         return 1;
     }
+
+    @Override
+    public int deleteSpuById(Integer id) {
+        PmsProductInfo pmsProductInfo=new PmsProductInfo();
+        pmsProductInfo.setId(id);
+        return pmsProductInfoMapper.delete(pmsProductInfo);
+    }
 }

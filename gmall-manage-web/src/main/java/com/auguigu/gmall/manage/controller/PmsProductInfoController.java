@@ -1,10 +1,13 @@
 package com.auguigu.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.auguigu.gmall.bean.PmsProductImage;
 import com.auguigu.gmall.bean.PmsProductInfo;
+import com.auguigu.gmall.service.PmsProductImageService;
 import com.auguigu.gmall.service.PmsProductInfoService;
+import com.auguigu.gmall.service.PmsProductSaleAttrService;
+import com.auguigu.gmall.service.PmsProductSaleAttrValueService;
 import com.auguigu.gmall.util.PmsUploadUtil;
-import org.csource.common.MyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +20,15 @@ import java.util.List;
 public class PmsProductInfoController {
     @Reference
     PmsProductInfoService pmsProductInfoService;
+
+    @Reference
+    PmsProductImageService pmsProductImageService;
+
+    @Reference
+    PmsProductSaleAttrService pmsProductSaleAttrService;
+
+    @Reference
+    PmsProductSaleAttrValueService pmsProductSaleAttrValueService;
 
     //获取所有的商铺信息
     @RequestMapping("/spuList")
@@ -43,5 +55,16 @@ public class PmsProductInfoController {
         return imageUrl;
     }
 
-
+    @RequestMapping("/deleteSpuById")
+    @ResponseBody
+    public String  deleteSpuById(@RequestParam  Integer id)  {
+        //删除该spu及其所属的所有对象
+        pmsProductInfoService.deleteSpuById(id);
+        pmsProductImageService.deleteByProductId(id);
+        pmsProductSaleAttrService.deleteByProductId(id);
+        pmsProductSaleAttrValueService.deleteByProductId(id);
+        System.out.println(id);
+        System.out.println("已经成功删除了");
+        return "delete success";
+    }
 }
