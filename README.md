@@ -6,6 +6,12 @@ gmall-user-web用户服务的web层8080
 gmall-manage-service用户服务的service层8071
 gmall-manage-web用户服务的web层8081
 
+养成习惯，先赞后看！！！
+项目后端Github地址：[https://github.com/haha143/gmall0105](https://github.com/haha143/gmall0105) `如果可以，可以star一波`
+
+@[TOC](目录)
+# 谷粒商城学习笔记
+
 ## 11月4日：
 
 ### 客户端如何调用dubbo的协议： 
@@ -39,7 +45,7 @@ spring.dubbo.base-package=com.auguigu.gmall
 
 进行端点调试的时候，consumer默认是在三秒内，每隔一秒就重新进行一次访问，如果超过三次，那么就会报超时异常，
 
-![1604546494308](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604546494308.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111090735425.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 所以为了调试时候的方便，我们需要延长consumer的超时时间
 
@@ -97,13 +103,13 @@ config:配置前端服务的IP和前端访问数据的后端的服务的IP地址
 
 ### 跨域问题:
 
-![1604580087960](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604580087960.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111090816435.png#pic_center)
 
 端口号与IP不同即为跨域
 
  跨域注解@CrossOrigin 	
-
-![1604580845441](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604580845441.png)
+ 
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111090912970.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 请求头中添加了信息，这样就能够进行跨域了
 
@@ -150,7 +156,7 @@ pmsBaseAttrInfoMapper.updateByExampleSelective(pmsBaseAttrInfo,example);
 
 - 图片对象数据：
 
-![1604662580399](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604662580399.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111090914654.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 上图即为图片的对象数据即图片本身
 
@@ -158,7 +164,8 @@ pmsBaseAttrInfoMapper.updateByExampleSelective(pmsBaseAttrInfo,example);
 
 - 图片的源数据
 
-![1604662625131](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604662625131.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111090912952.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 上图即为图片的源数据即详细信息或属性
 
@@ -177,8 +184,8 @@ pmsBaseAttrInfoMapper.updateByExampleSelective(pmsBaseAttrInfo,example);
 ### 分布式文件存储系统fastdfs安装步骤： 
 
 - 将压缩包上传到opt目录下
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091027277.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
-  ![1604714668637](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604714668637.png)
 
 - 之后解压改文件
 
@@ -186,8 +193,7 @@ pmsBaseAttrInfoMapper.updateByExampleSelective(pmsBaseAttrInfo,example);
   cd /opt
   tar -zxvf FastDFS_v5.05.tar.gz 
   ```
-
-  ![1604714748931](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604714748931.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091027239.png#pic_center)
 
 - 这时候我们来编译文件
 
@@ -198,8 +204,7 @@ cd FastDFS
 
 - 如果出现下面的错误，那么我们需要先安装这个环境**libfastcommon**
 
-![1604715523104](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604715523104.png)
-
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091027249.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 - 安装**libfastcommon**步骤
 
   - 上传文件到/usr/local目录下
@@ -209,7 +214,7 @@ cd FastDFS
   tar -zxvf libfastcommonV1.0.7.tar.gz
   ```
 
-  ![1604715979038](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604715979038.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091149658.png#pic_center)
 
   - 进入解压好的文件夹下，开始编译
 
@@ -218,7 +223,7 @@ cd FastDFS
   ./make.sh
   ```
 
-  ![1604716040640](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604716040640.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091149778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
   如果出现无法识别./make.sh，那么运行运行下面的代码即可
 
@@ -234,8 +239,8 @@ cd FastDFS
   ./make.sh install
   ```
 
-  ![1604716447598](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604716447598.png)
 
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091222151.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
   这里我们可以看到他是默认将这个东西安装到/usr/lib64目录下的，但是我们之后Fastdfs程序默认是引用/usr/lib目录下的文件，所以我们需要将该目录下的l**ibfastcommon.so**文件赋值粘贴到/usr/lib目录下
 
   ```java
@@ -248,12 +253,13 @@ cd FastDFS
 ./make.sh
 ./make.sh install
 ```
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091222197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
-![1604717057207](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604717057207.png)
 
 这样就算编译成功了。
 
-![1604717191924](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604717191924.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091404866.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 这样就算安装成功了。
 
@@ -261,7 +267,7 @@ cd FastDFS
 
 这时候我们先去查看一下是否有该目录，我们检查之后发现是没有的
 
-![1604717607637](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604717607637.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091404775.png#pic_center)
 
 但是当我们选择去创建该目录的时候会发现该目录其实已经存在了，
 
@@ -269,7 +275,8 @@ cd FastDFS
 mkdir /etc/fdfs
 ```
 
-![1604717843283](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604717843283.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/202011110914532.png#pic_center)
 
 我们可以进入该目录去检验一下，可以发现我们是可以进入该目录的，
 
@@ -277,7 +284,8 @@ mkdir /etc/fdfs
 cd fdfs
 ```
 
-![1604717873053](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604717873053.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091452996.png#pic_center)
 
 这就说明我们在安装Fastdfs的时候，他就已经默认帮我们将它创建了，知识这个目录是隐藏的
 
@@ -287,7 +295,8 @@ cd fdfs
 cp * /etc/fdfs
 ```
 
-![1604718414806](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604718414806.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091516320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 - 之后我们去配置/etc/fdfs目录下去配置tracker.conf,这其中主要就是设置软件数据以及日志目录
 
@@ -302,7 +311,8 @@ vi tracker.conf
 
 将这个目录修改成我们刚才创建的那个存放数据以及日志的目录
 
-![1604718730648](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604718730648.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091532562.png#pic_center)
 
 之后保存退出即可
 
@@ -312,15 +322,16 @@ vi tracker.conf
 
 这一处就是我们数据和日志存储的目录
 
-![1604719416837](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604719416837.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/202011110915522.png#pic_center)
 
 这一处使我们文件将来存储的位置，我们可以看到这里面可以设置多个文件存储位置
 
-![1604719501776](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604719501776.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/202011110915523.png#pic_center)
 
 这里就是修改成刚才部署tracker的那台服务器的IP就行了，因为我们这里tracker和storage是部署在同一台服务器上的，所以我们就直接用本机的IP即可，因为我们是**阿里云的服务器**，所以等会我们需要去**配置防火墙以及开通安全组规则**，否则这个22122端口是无法访问开启的
 
-![1604719454337](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604719454337.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091637994.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 配置防火墙端口号：
 
@@ -332,13 +343,15 @@ firewall-cmd --list-all
 
 ```
 
-![1604721226199](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604721226199.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091637978.png#pic_center)
 
 开通安全组：
 
 记得入方向和出方向都需要配置
 
-![1604719901099](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604719901099.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091700302.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 - 配置fdfs_storaged和fdfs_trackerd的启动服务
 
@@ -440,8 +453,8 @@ vi  /fastdfs-nginx-module/src/config
 
 把中间的local删掉，注意有两个文件路径
 
-![1604737986588](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604737986588.png)
 
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091727304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 - 将插件整合fastdfs的配置文件拷贝到fastdfs的配置目录下
 
 ```java
@@ -455,21 +468,21 @@ cp mod_fastdfs.conf /etc/fdfs/
 
   - fdfs的软件安装目录
 
-  ![1604738803233](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604738803233.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091744865.png#pic_center)
 
   - fdfs的tracker的IP地址
 
-  ![1604738844974](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604738844974.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091744870.png#pic_center)
 
   - fdfs生成的URL是否使用分组
 
-  ![1604738906963](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604738906963.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091851492.png#pic_center)
 
   这个其实看我们刚才生成的图片URL就能看到包含group1这个字段
 
   - fdfs的文件存储路径
 
-  ![1604738976073](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604738976073.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091851515.png#pic_center)
 
 ### Nginx安装
 
@@ -509,13 +522,17 @@ make install
 
 ```
 
-![1604746578408](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604746578408.png)
 
-![1604746608582](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604746608582.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091938630.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
-![1604746711823](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604746711823.png)
 
-![1604746749426](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604746749426.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111091938665.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111092024834.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111092036617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 之后重新粘贴我们之前的代码即可完成我们Nginx
 
@@ -523,11 +540,13 @@ make install
 
 主要有下面两处修改，这里修改的是本机的IP地址
 
-![1604883833109](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604883833109.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111092107323.png#pic_center)
 
 另外一个就是将我们上面配置的插件添加进来
 
-![1604884122465](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604884122465.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111092120123.png#pic_center)
 
 - 之后我们启动Nginx服务
 
@@ -543,17 +562,20 @@ make install
 
 因为我已经启动过了，所以我这里是用的重启nginx服务的命令
 
-![1604884721708](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604884721708.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201111092131998.png#pic_center)
 
 这样就代表Nginx服务已经启动成功了。
 
 之后我们去浏览器里面输入你服务器的IP地址，就能够看到下面的界面了：
 
-![1604884260489](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604884260489.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020111109214773.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 之后我们再无重新访问我们之前上传图片时生成的URL地址，可以发现这时候图片就可以正常访问了。
 
-![1604884333480](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604884333480.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020111109220185.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 
 ## 11月9日：
 
@@ -689,4 +711,6 @@ public static String uploadImage(MultipartFile multipartFile) throws IOException
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201109190540870.gif#pic_center)
 可以看到图片的确上传上去了，并且后台给我们返回了FastDFS为我们生成的图片的URL地址，我们之后通过浏览器也的确能够进行访问了。
+
+
 
