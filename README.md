@@ -1,5 +1,5 @@
 # gmall0105 本地修改版本
-#gmall-user用户服务8080
+gmall-user用户服务8080
 gmall-user-service用户服务的service层8070
 gmall-user-web用户服务的web层8080
 
@@ -39,7 +39,9 @@ spring.dubbo.base-package=com.auguigu.gmall
 
 进行端点调试的时候，consumer默认是在三秒内，每隔一秒就重新进行一次访问，如果超过三次，那么就会报超时异常，
 
-![1604546494308](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604546494308.png)所以为了调试时候的方便，我们需要延长consumer的超时时间
+![1604546494308](C:\Users\22935\AppData\Roaming\Typora\typora-user-images\1604546494308.png)
+
+所以为了调试时候的方便，我们需要延长consumer的超时时间
 
 ```java
 #设置comsumer的超时时间,单位是毫秒
