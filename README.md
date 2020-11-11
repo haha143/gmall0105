@@ -7,7 +7,6 @@ gmall-manage-service用户服务的service层8071
 gmall-manage-web用户服务的web层8081
 
 养成习惯，先赞后看！！！
-项目后端Github地址：[https://github.com/haha143/gmall0105](https://github.com/haha143/gmall0105) `如果可以，可以star一波`
 
 @[TOC](目录)
 # 谷粒商城学习笔记
