@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class UmsMember implements Serializable {
     private int status;
     private Date createTime;
     private String icon;
-    private int  gender;
+    private int gender;
     private Date birthday;
     private String city;
     private String job;

@@ -18,7 +18,7 @@ public class PmsProductSaleAttr implements Serializable {
 
     @Id
     @Column
-    Integer id ;
+    Integer id;
 
     @Column
     Integer productId;

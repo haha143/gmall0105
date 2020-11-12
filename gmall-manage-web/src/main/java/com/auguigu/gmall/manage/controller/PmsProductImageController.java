@@ -19,8 +19,8 @@ public class PmsProductImageController {
 
     @RequestMapping("/spuImageList")
     @ResponseBody
-    public List<PmsProductImage>spuImageList(@RequestParam Integer spuId){
-        List<PmsProductImage>pmsProductImageList=pmsProductImageService.spuImageList(spuId);
+    public List<PmsProductImage> spuImageList(@RequestParam Integer spuId) {
+        List<PmsProductImage> pmsProductImageList = pmsProductImageService.spuImageList(spuId);
         return pmsProductImageList;
     }
 }

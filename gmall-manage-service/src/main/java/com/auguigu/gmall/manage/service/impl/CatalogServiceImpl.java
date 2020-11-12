@@ -22,24 +22,25 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Autowired
     PmsBaseCatalo3Mapper pmsBaseCatalog3Mapper;
+
     @Override
     public List<PmsBaseCatalog1> getCatalog1() {
         return pmsBaseCatalog1Mapper.selectAll();
     }
 
     @Override
-    public List<PmsBaseCatalog2> getCatalog2(Integer  catalog1Id) {
-        PmsBaseCatalog2 pmsBaseCatalog2=new PmsBaseCatalog2();
+    public List<PmsBaseCatalog2> getCatalog2(Integer catalog1Id) {
+        PmsBaseCatalog2 pmsBaseCatalog2 = new PmsBaseCatalog2();
         pmsBaseCatalog2.setCatalog1Id(catalog1Id);
-        List<PmsBaseCatalog2>pmsBaseCatalog2List=pmsBaseCatalog2Mapper.select(pmsBaseCatalog2);
+        List<PmsBaseCatalog2> pmsBaseCatalog2List = pmsBaseCatalog2Mapper.select(pmsBaseCatalog2);
         return pmsBaseCatalog2List;
     }
 
     @Override
     public List<PmsBaseCatalog3> getCatalog3(Integer catalog2Id) {
-        PmsBaseCatalog3 pmsBaseCatalog3=new PmsBaseCatalog3();
+        PmsBaseCatalog3 pmsBaseCatalog3 = new PmsBaseCatalog3();
         pmsBaseCatalog3.setCatalog2Id(catalog2Id);
-        List<PmsBaseCatalog3>pmsBaseCatalog3List=pmsBaseCatalog3Mapper.select(pmsBaseCatalog3);
+        List<PmsBaseCatalog3> pmsBaseCatalog3List = pmsBaseCatalog3Mapper.select(pmsBaseCatalog3);
         return pmsBaseCatalog3List;
     }
 }

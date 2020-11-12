@@ -33,15 +33,15 @@ public class PmsProductInfoController {
     //获取所有的商铺信息
     @RequestMapping("/spuList")
     @ResponseBody
-    public List<PmsProductInfo> spuList(@RequestParam Integer catalog3Id){
-        List<PmsProductInfo> pmsProductInfoList= pmsProductInfoService.spuList(catalog3Id);
+    public List<PmsProductInfo> spuList(@RequestParam Integer catalog3Id) {
+        List<PmsProductInfo> pmsProductInfoList = pmsProductInfoService.spuList(catalog3Id);
         return pmsProductInfoList;
     }
 
     //保存spu信息
     @RequestMapping("/saveSpuInfo")
     @ResponseBody
-    public String saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo){
+    public String saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo) {
         pmsProductInfoService.saveSpuInfo(pmsProductInfo);
         return "insert success";
     }
@@ -50,14 +50,14 @@ public class PmsProductInfoController {
     @RequestMapping("/fileUpload")
     @ResponseBody
     public String fileUpload(@RequestParam("file") MultipartFile multipartFile) throws IOException {
-        String imageUrl=PmsUploadUtil.uploadImage(multipartFile);
+        String imageUrl = PmsUploadUtil.uploadImage(multipartFile);
         //将图片的存储路径返回给页面用于提交源数据
         return imageUrl;
     }
 
     @RequestMapping("/deleteSpuById")
     @ResponseBody
-    public String  deleteSpuById(@RequestParam  Integer id)  {
+    public String deleteSpuById(@RequestParam Integer id) {
         //删除该spu及其所属的所有对象
         pmsProductInfoService.deleteSpuById(id);
         pmsProductImageService.deleteByProductId(id);

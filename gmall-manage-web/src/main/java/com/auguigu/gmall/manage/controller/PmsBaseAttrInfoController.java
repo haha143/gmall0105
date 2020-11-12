@@ -20,22 +20,22 @@ public class PmsBaseAttrInfoController {
 
     @RequestMapping("/attrInfoList")
     @ResponseBody
-    public List<PmsBaseAttrInfo> getCatalog3(@RequestParam Integer  catalog3Id){
-        List<PmsBaseAttrInfo> pmsBaseAttrInfoList= pmsBaseAttrInfoService.getCatalog3(catalog3Id);
+    public List<PmsBaseAttrInfo> getCatalog3(@RequestParam Integer catalog3Id) {
+        List<PmsBaseAttrInfo> pmsBaseAttrInfoList = pmsBaseAttrInfoService.getCatalog3(catalog3Id);
         return pmsBaseAttrInfoList;
     }
 
 
     @RequestMapping("/saveAttrInfo")
     @ResponseBody
-    public String saveAttrInfo(@RequestBody PmsBaseAttrInfo  pmsBaseAttrInfo){
+    public String saveAttrInfo(@RequestBody PmsBaseAttrInfo pmsBaseAttrInfo) {
         pmsBaseAttrInfoService.saveAttrInfo(pmsBaseAttrInfo);
         return "success";
     }
 
     @RequestMapping("/deleteAttrInfoById")
     @ResponseBody
-    public String deleteAttrInfoById(@RequestParam Integer id){
+    public String deleteAttrInfoById(@RequestParam Integer id) {
         pmsBaseAttrInfoService.deleteAttrInfoById(id);
         pmsBaseAttrValueService.deleteAttrValueByAttrId(id);
         System.out.println(id);

@@ -3,9 +3,9 @@ package com.auguigu.gmall.bean;
 public enum RestResultStatus {
     SUCCESS("Y", "成功"),
     FAIL("N", "失败"),
-    NOT_FUND("404","信息未找到");
+    NOT_FUND("404", "信息未找到");
 
-//    private static final Map<String, RestResultStatus> map;
+    //    private static final Map<String, RestResultStatus> map;
 //    static {
 //        map = new HashMap<>();
 //        for (RestResultStatus item : RestResultStatus.values()) {

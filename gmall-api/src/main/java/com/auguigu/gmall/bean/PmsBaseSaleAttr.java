@@ -19,7 +19,7 @@ public class PmsBaseSaleAttr implements Serializable {
 
     @Id
     @Column
-    Integer id ;
+    Integer id;
 
     @Column
     String name;

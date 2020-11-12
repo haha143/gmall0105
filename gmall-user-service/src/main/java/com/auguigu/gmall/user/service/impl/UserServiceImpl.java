@@ -30,10 +30,10 @@ public class UserServiceImpl implements UserService {
         e.createCriteria().andEqualTo(memberId);//设置是根据那个属性进行查询*/
        /* 方法二
         直接生成对象并设置属性，通过该对象进行查询*/
-        UmsMemberReceiveAddress umsMemberReceiveAddress=new UmsMemberReceiveAddress();
+        UmsMemberReceiveAddress umsMemberReceiveAddress = new UmsMemberReceiveAddress();
         umsMemberReceiveAddress.setMemberId(memberId);
         //umsMemberReceiveAddress.setDefaultStatus(defaultStatus);
-        List<UmsMemberReceiveAddress>umsMemberReceiveAddressList=umsMemberReceiveAddressMapper.select(umsMemberReceiveAddress);
+        List<UmsMemberReceiveAddress> umsMemberReceiveAddressList = umsMemberReceiveAddressMapper.select(umsMemberReceiveAddress);
 
        /* Example e=new Example(UmsMemberReceiveAddress.class);//是谁的泛型
         e.createCriteria().andEqualTo("memberId",memberId);//设置是根据那个属性进行查询

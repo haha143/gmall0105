@@ -12,16 +12,17 @@ import java.util.List;
 public class PmsProductImageServiceImpl implements PmsProductImageService {
     @Autowired
     PmsProductImageMapper pmsProductImageMapper;
+
     @Override
     public int deleteByProductId(Integer id) {
-        PmsProductImage pmsProductImage=new PmsProductImage();
+        PmsProductImage pmsProductImage = new PmsProductImage();
         pmsProductImage.setProductId(id);
         return pmsProductImageMapper.delete(pmsProductImage);
     }
 
     @Override
     public List<PmsProductImage> spuImageList(Integer spuId) {
-        PmsProductImage pmsProductImage=new PmsProductImage();
+        PmsProductImage pmsProductImage = new PmsProductImage();
         pmsProductImage.setProductId(spuId);
         return pmsProductImageMapper.select(pmsProductImage);
     }

@@ -12,6 +12,7 @@ import java.util.List;
 public class PmsBaseSaleAttrImpl implements PmsBaseSaleAttrService {
     @Autowired
     PmsBaseSaleAttrMapper pmsBaseSaleAttrMapper;
+
     @Override
     public List<PmsBaseSaleAttr> baseSaleAttrList() {
         return pmsBaseSaleAttrMapper.selectAll();

@@ -10,12 +10,13 @@
         <module name="demo" />
         <module name="fastdfs-client-java" />
         <module name="gmall-manage-web" />
+        <module name="gmall-item-web" />
         <module name="gmall-common-util" />
+        <module name="gmall-web-util" />
         <module name="gmall-manage-service" />
         <module name="gmall-user" />
         <module name="gmall-user-web" />
         <module name="gmall-api" />
-        <module name="gmall-web-util" />
         <module name="gmall-service-util" />
         <module name="gmall-user-service" />
       </profile>
@@ -25,6 +26,7 @@
       <module name="fastdfs-client-java" target="1.6" />
       <module name="gmall-api" target="1.5" />
       <module name="gmall-common-util" target="1.8" />
+      <module name="gmall-item-web" target="1.8" />
       <module name="gmall-manage-service" target="1.8" />
       <module name="gmall-manage-web" target="1.8" />
       <module name="gmall-parent" target="1.8" />
@@ -39,6 +41,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="demo" options="-parameters" />
       <module name="gmall-common-util" options="" />
+      <module name="gmall-item-web" options="" />
       <module name="gmall-manage-service" options="" />
       <module name="gmall-manage-web" options="" />
       <module name="gmall-service-util" options="" />

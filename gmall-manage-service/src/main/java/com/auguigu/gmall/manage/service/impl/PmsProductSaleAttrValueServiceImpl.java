@@ -10,9 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class PmsProductSaleAttrValueServiceImpl implements PmsProductSaleAttrValueService {
     @Autowired
     PmsProductSaleAttrValueMapper pmsProductSaleAttrValueMapper;
+
     @Override
     public int deleteByProductId(Integer id) {
-        PmsProductSaleAttrValue pmsProductSaleAttrValue=new PmsProductSaleAttrValue();
+        PmsProductSaleAttrValue pmsProductSaleAttrValue = new PmsProductSaleAttrValue();
         pmsProductSaleAttrValue.setProductId(id);
         return pmsProductSaleAttrValueMapper.delete(pmsProductSaleAttrValue);
     }

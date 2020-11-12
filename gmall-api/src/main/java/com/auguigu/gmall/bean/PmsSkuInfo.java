@@ -1,7 +1,6 @@
 package com.auguigu.gmall.bean;
 
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +26,9 @@ public class PmsSkuInfo implements Serializable {
 
     @Column
     Integer productId;
+
+    @Transient
+    Integer spuId;
 
     @Column
     BigDecimal price;

@@ -18,7 +18,9 @@ public class PmsSkuInfoController {
 
     @RequestMapping("/saveSkuInfo")
     @ResponseBody
-    public String saveSkuInfo(@RequestBody PmsSkuInfo pmsSkuInfo){
+    public String saveSkuInfo(@RequestBody PmsSkuInfo pmsSkuInfo) {
+        //将spuId封装成productId
+        pmsSkuInfo.setProductId(pmsSkuInfo.getSpuId());
         pmsSkuInfoService.saveSkuInfo(pmsSkuInfo);
         return "insert success";
     }

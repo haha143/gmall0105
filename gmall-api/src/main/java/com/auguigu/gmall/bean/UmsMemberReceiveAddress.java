@@ -7,6 +7,7 @@ import org.omg.PortableInterceptor.INACTIVE;
 
 import javax.persistence.Id;
 import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,8 +15,8 @@ public class UmsMemberReceiveAddress implements Serializable {
     @Id
     private Integer id;
     private Integer memberId;
-    private String  name;
-    private String  phoneNumber;
+    private String name;
+    private String phoneNumber;
     private int defaultStatus;
     private String postCode;
     private String province;

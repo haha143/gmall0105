@@ -17,23 +17,24 @@ public class PmsProductSaleAttrServiceImpl implements PmsProductSaleAttrService 
 
     @Autowired
     PmsProductSaleAttrValueMapper pmsProductSaleAttrValueMapper;
+
     @Override
     public int deleteByProductId(Integer id) {
-        PmsProductSaleAttr pmsProductSaleAttr=new PmsProductSaleAttr();
+        PmsProductSaleAttr pmsProductSaleAttr = new PmsProductSaleAttr();
         pmsProductSaleAttr.setProductId(id);
         return pmsProductSaleAttrMapper.delete(pmsProductSaleAttr);
     }
 
     @Override
     public List<PmsProductSaleAttr> spuSaleAttrList(Integer spuId) {
-        PmsProductSaleAttr pmsProductSaleAttr=new PmsProductSaleAttr();
+        PmsProductSaleAttr pmsProductSaleAttr = new PmsProductSaleAttr();
         pmsProductSaleAttr.setProductId(spuId);
-        List<PmsProductSaleAttr> pmsProductSaleAttrList=pmsProductSaleAttrMapper.select(pmsProductSaleAttr);
-        for(PmsProductSaleAttr pmsProductSaleAttr1:pmsProductSaleAttrList){
-            PmsProductSaleAttrValue pmsProductSaleAttrValue=new PmsProductSaleAttrValue();
+        List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductSaleAttrMapper.select(pmsProductSaleAttr);
+        for (PmsProductSaleAttr pmsProductSaleAttr1 : pmsProductSaleAttrList) {
+            PmsProductSaleAttrValue pmsProductSaleAttrValue = new PmsProductSaleAttrValue();
             pmsProductSaleAttrValue.setProductId(spuId);
             pmsProductSaleAttrValue.setSaleAttrId(pmsProductSaleAttr1.getSaleAttrId());
-            List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList=pmsProductSaleAttrValueMapper.select(pmsProductSaleAttrValue);
+            List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList = pmsProductSaleAttrValueMapper.select(pmsProductSaleAttrValue);
             pmsProductSaleAttr1.setPmsProductSaleAttrValueList(pmsProductSaleAttrValueList);
         }
         return pmsProductSaleAttrList;

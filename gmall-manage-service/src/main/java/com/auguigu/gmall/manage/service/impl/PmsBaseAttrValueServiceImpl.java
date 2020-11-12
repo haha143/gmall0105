@@ -19,22 +19,22 @@ public class PmsBaseAttrValueServiceImpl implements PmsBaseAttrValueService {
 
     @Override
     public List<PmsBaseAttrValue> getAttrValueList(Integer attrId) {
-        PmsBaseAttrValue pmsBaseAttrValue=new PmsBaseAttrValue();
+        PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
         pmsBaseAttrValue.setAttrId(attrId);
-        List<PmsBaseAttrValue>pmsBaseAttrValueList=pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
+        List<PmsBaseAttrValue> pmsBaseAttrValueList = pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
         return pmsBaseAttrValueList;
     }
 
     @Override
     public int deleteAttrValueById(Integer id) {
-        PmsBaseAttrValue pmsBaseAttrValue=new PmsBaseAttrValue();
+        PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
         pmsBaseAttrValue.setId(id);
         return pmsBaseAttrValueMapper.delete(pmsBaseAttrValue);
     }
 
     @Override
     public int deleteAttrValueByAttrId(Integer id) {
-        PmsBaseAttrValue pmsBaseAttrValue=new PmsBaseAttrValue();
+        PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
         pmsBaseAttrValue.setAttrId(id);
         return pmsBaseAttrValueMapper.delete(pmsBaseAttrValue);
     }

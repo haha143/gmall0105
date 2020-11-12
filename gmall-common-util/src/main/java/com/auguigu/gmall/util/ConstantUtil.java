@@ -11,5 +11,5 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConstantUtil {
-    public String ImageUrl="http://47.98.59.8";
+    public String ImageUrl = "http://47.98.59.8";
 }

@@ -16,10 +16,11 @@ import java.util.List;
 public class PmsBaseSaleAttrController {
     @Reference
     PmsBaseSaleAttrService pmsBaseSaleAttrService;
+
     @RequestMapping("/baseSaleAttrList")
     @ResponseBody
-    public List<PmsBaseSaleAttr> baseSaleAttrList(){
-        List<PmsBaseSaleAttr> pmsBaseSaleAttrList= pmsBaseSaleAttrService.baseSaleAttrList();
+    public List<PmsBaseSaleAttr> baseSaleAttrList() {
+        List<PmsBaseSaleAttr> pmsBaseSaleAttrList = pmsBaseSaleAttrService.baseSaleAttrList();
         return pmsBaseSaleAttrList;
     }
 }

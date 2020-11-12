@@ -7,7 +7,7 @@ public class RestResult {
     private String status;
     private String info;
     private Object data = new ArrayList();
-    private int    length;
+    private int length;
 
     public RestResult() {
         this.setData(new ArrayList());
@@ -23,7 +23,7 @@ public class RestResult {
         this.setInfo(RestResultStatus.SUCCESS.getText());
     }
 
-    public void success(Object data){
+    public void success(Object data) {
         this.setData(data);
         this.setLength(0);
         this.setStatus(RestResultStatus.SUCCESS.getCode());
@@ -38,7 +38,7 @@ public class RestResult {
         this.setInfo(info);
     }
 
-    public void fail(RestResultStatus restResultStatus){
+    public void fail(RestResultStatus restResultStatus) {
         this.setData(new ArrayList());
         this.setLength(0);
         this.setStatus(restResultStatus.getCode());

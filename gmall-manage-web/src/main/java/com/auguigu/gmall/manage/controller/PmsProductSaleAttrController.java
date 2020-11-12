@@ -19,8 +19,8 @@ public class PmsProductSaleAttrController {
 
     @RequestMapping("/spuSaleAttrList")
     @ResponseBody
-    public List<PmsProductSaleAttr> spuSaleAttrList(@RequestParam Integer spuId ){
-        List<PmsProductSaleAttr> pmsProductSaleAttrList =pmsProductSaleAttrService.spuSaleAttrList(spuId);
+    public List<PmsProductSaleAttr> spuSaleAttrList(@RequestParam Integer spuId) {
+        List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductSaleAttrService.spuSaleAttrList(spuId);
         return pmsProductSaleAttrList;
     }
 }

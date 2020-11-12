@@ -30,7 +30,7 @@ public class PmsProductInfo implements Serializable {
     private String description;
 
     @Column
-    private  Integer catalog3Id;
+    private Integer catalog3Id;
 
     @Transient
     private List<PmsProductSaleAttr> pmsProductSaleAttrList;
