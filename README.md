@@ -769,7 +769,7 @@ spring.thymeleaf.mode=LEGACYHTML5
 
 - 取值
 
-```
+```java
 <p th:text="${hello}">默认值</p>
 ```
 
@@ -777,7 +777,7 @@ spring.thymeleaf.mode=LEGACYHTML5
 
 - 循环
 
-```
+```java
 <p th:each="str:${list}" th:text="${str}"></p>
 
 <p th:each="str:${list}" >
@@ -789,7 +789,7 @@ spring.thymeleaf.mode=LEGACYHTML5
 
 - 判断
 
-```
+```java
 <input type="checkbox" th:checked="${check}==2">
 ```
 
@@ -797,14 +797,17 @@ spring.thymeleaf.mode=LEGACYHTML5
 
 - 传值给JavaScript
 
-  ```java
+```java
 <a th:href="'javascript:a(\''+${hello}+'\')'">点我</a>
 <script language="JavaScript">
     function a(hello) {
         alert("js函数被调用了"+hello);
     }
 </script>
-  ```
+```
+
+
+
 
  ![img](https://img-blog.csdnimg.cn/20201112170147853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center) 
 
@@ -817,6 +820,5 @@ spring.thymeleaf.mode=LEGACYHTML5
 显然这个SKU对象的id我们是没有的，所以我们必须对于这种请求进行拦截，拦截之后应该生成上述的页面，如果我们将这个？去掉的话，我们再次访问该页面就会出现下面的错误：
 
  ![img](https://img-blog.csdnimg.cn/20201112185932573.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center) 
-
 
 
