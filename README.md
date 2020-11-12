@@ -710,6 +710,113 @@ public static String uploadImage(MultipartFile multipartFile) throws IOException
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201109190540870.gif#pic_center)
 可以看到图片的确上传上去了，并且后台给我们返回了FastDFS为我们生成的图片的URL地址，我们之后通过浏览器也的确能够进行访问了。
+## 11月12日：
+
+### Thymeleaf模板约束：
+
+thymeleaf使用的是HTML的扩展标签，需要在页面上申明thymeleaf的模板约束
+
+### 松校验+热部署：
+
+引入thymeleaf相关联的三个依赖：
+
+```java
+  <!--热部署，松校验-->
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-ext</artifactId>
+        </dependency>
+```
+
+之后在application.properties文件里面配置以下代码：
+
+```java
+#关闭thymeleaf缓存(热部署)
+spring.thymeleaf.cache=false
+#松校验
+spring.thymeleaf.mode=LEGACYHTML5
+```
+
+这里的热部署不是实时的，还是需要我们先提交文件，才能看到更新的文件
+
+提交文件快捷键：**Ctrl+shift+F9**
+
+### Thymeleaf基本语法：
+
+前端获取的数据都是通过后台通过ModelMap进行返回的
+
+```java
+@RequestMapping("/index")
+    public String index(ModelMap modelMap){
+        List<String>list=new ArrayList<>();
+        for(int i=0;i<5;i++){
+            list.add("循环数据"+i);
+        }
+        modelMap.put("hello","are you ok");
+        modelMap.put("list",list);
+        modelMap.put("check",1);
+        return "index";
+    }
+```
+
+- 取值
+
+```
+<p th:text="${hello}">默认值</p>
+```
+
+先检查thymeleaf标签，如果标签里面有值就先显示该值，否则显示默认值
+
+- 循环
+
+```
+<p th:each="str:${list}" th:text="${str}"></p>
+
+<p th:each="str:${list}" >
+    <input th:text="${str}" th:value="${str}" />
+</p>
+```
+
+ ![img](https://img-blog.csdnimg.cn/20201112144855377.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center) 
+
+- 判断
+
+```
+<input type="checkbox" th:checked="${check}==2">
+```
+
+ ![img](https://img-blog.csdnimg.cn/20201112154623278.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center) 
+
+- 传值给JavaScript
+
+  ```java
+<a th:href="'javascript:a(\''+${hello}+'\')'">点我</a>
+<script language="JavaScript">
+    function a(hello) {
+        alert("js函数被调用了"+hello);
+    }
+</script>
+  ```
+
+ ![img](https://img-blog.csdnimg.cn/20201112170147853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center) 
+
+### 前端页面中的skuInfo?.skuDefaultImg中的？含义
+
+这个？主要是为了防止空指针异常，如果出现我们不存在的skuinfo对象，显然页面时根本无法显示的，所以为了防止这种现象，我们必须拦截这种类似的请求
+
+ ![img](https://img-blog.csdnimg.cn/20201112185632581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center) 
+
+显然这个SKU对象的id我们是没有的，所以我们必须对于这种请求进行拦截，拦截之后应该生成上述的页面，如果我们将这个？去掉的话，我们再次访问该页面就会出现下面的错误：
+
+ ![img](https://img-blog.csdnimg.cn/20201112185932573.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center) 
 
 
 
