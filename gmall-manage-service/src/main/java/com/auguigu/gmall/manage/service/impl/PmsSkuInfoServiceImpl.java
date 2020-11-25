@@ -85,6 +85,12 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService {
         return pmsSkuInfo1;
     }
 
+    @Override
+    public List<PmsSkuInfo> getSkuInfosBySpu(Integer productId) {
+        List<PmsSkuInfo> pmsSkuInfoList=pmsSkuInfoMapper.selectSkuInfosBySpu(productId);
+        return pmsSkuInfoList;
+    }
+
 //    @Override
 //    public List<PmsProductSaleAttr> setCheckedSaleAttrValue(PmsSkuInfo pmsSkuInfo, List<PmsProductSaleAttr> pmsProductSaleAttrList) {
 //        List<PmsSkuSaleAttrValue>pmsSkuSaleAttrValueList=pmsSkuInfo.getPmsSkuSaleAttrValueList();

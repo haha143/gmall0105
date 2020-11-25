@@ -1,10 +1,13 @@
 package com.auguigu.gmall.item.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.auguigu.gmall.bean.PmsProductSaleAttr;
 import com.auguigu.gmall.bean.PmsSkuInfo;
+import com.auguigu.gmall.bean.PmsSkuSaleAttrValue;
 import com.auguigu.gmall.service.PmsProductInfoService;
 import com.auguigu.gmall.service.PmsSkuInfoService;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ItemController {
@@ -30,6 +34,21 @@ public class ItemController {
         modelMap.put("skuInfo",pmsSkuInfo);
         //销售属性列表
         modelMap.put("spuSaleAttrListCheckBySku",pmsProductSaleAttrList);
+        //创建该SKU对象对应的SPU对象下的所有SKU对象的一个hash表
+        Map<Object,Object>SkuInfoHashmap= new HashedMap();
+        List<PmsSkuInfo>pmsSkuInfoList=pmsSkuInfoService.getSkuInfosBySpu(pmsSkuInfo.getProductId());
+        for(PmsSkuInfo pmsSkuInfo1:pmsSkuInfoList){
+            String k="";
+            Integer v=pmsSkuInfo1.getId();
+            List<PmsSkuSaleAttrValue> skuSaleAttrValueList=pmsSkuInfo1.getPmsSkuSaleAttrValueList();
+            for(PmsSkuSaleAttrValue pmsSkuSaleAttrValue:skuSaleAttrValueList){
+                k+=pmsSkuSaleAttrValue.getSaleAttrValueId()+"|";
+            }
+            SkuInfoHashmap.put(k,v);
+        }
+        //将该hash表传给前端,并且一直存放在前端
+        String SkuInfoHashMapjsonSt = JSON.toJSONString(SkuInfoHashmap);
+        modelMap.put("valueSku",SkuInfoHashMapjsonSt);
         return "item";
     }
 
