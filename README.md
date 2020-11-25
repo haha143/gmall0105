@@ -820,5 +820,232 @@ spring.thymeleaf.mode=LEGACYHTML5
 显然这个SKU对象的id我们是没有的，所以我们必须对于这种请求进行拦截，拦截之后应该生成上述的页面，如果我们将这个？去掉的话，我们再次访问该页面就会出现下面的错误：
 
  ![img](https://img-blog.csdnimg.cn/20201112185932573.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center) 
+## 11月24日:
+
+### SQL语句-左连接,右连接,内连接:
+
+显示内连接查询绑定pms_product_sale_attr 与pms_product_sale_attr_value两张表的信息
+
+```java
+SELECT
+	sa.*,
+	sav.*
+FROM
+	pms_product_sale_attr sa
+	INNER JOIN pms_product_sale_attr_value sav ON sa.product_id = sav.product_id 
+	AND sa.sale_attr_id = sav.sale_attr_id 
+	AND sa.product_id = 70
+```
+
+查询结果:
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201124205145703.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+我们这里只是简单的先将我们需要的**SPU自带的销售属性及其属性值**全部查询出来的,但是因为我们还要做到能够直接定位到**当前SKU所固定的销售属性值**,所以我们还需要再关联一张表即pms_sku_sale_attr_value,这张表主要就是帮我们筛选出我们当前SKU对象所对应的销售属性,这里我们主要是通过左连接进行绑定
+
+```java
+SELECT
+	sa.*,
+	sav.* ,
+	ssav.*
+FROM
+	pms_product_sale_attr sa
+	INNER JOIN pms_product_sale_attr_value sav ON sa.product_id = sav.product_id 
+	AND sa.sale_attr_id = sav.sale_attr_id 
+	AND sa.product_id = 70
+	LEFT JOIN pms_sku_sale_attr_value ssav ON sav.id = ssav.sale_attr_value_id 
+WHERE
+	ssav.sku_id = 106;
+```
+
+查询结果:
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201124205158603.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+
+
+但是运行完成之后我们会发现,只剩下了两条数据,那么这样的话我们就无法将**SPU整个的销售属性及其属性值**取出来,显然是不行的.经过我们的排查之后我们发现这里主要就是where字段的范围太大了,我们将where 写在了最后就说明,他是需要整个数据中满足 sku_id=106的数据保留下来,但是很明显这里我们其实只是应该将我们后半段左连接中的数据中满足sku_id=106的数据保留下来,所以我们简单的修改以下代码
+
+```java
+SELECT
+	sa.*,
+	sav.*,
+	ssav.*
+FROM
+	pms_product_sale_attr sa
+	INNER JOIN pms_product_sale_attr_value sav ON sa.product_id = sav.product_id 
+	AND sa.sale_attr_id = sav.sale_attr_id 
+	AND sa.product_id = 70
+	LEFT JOIN pms_sku_sale_attr_value ssav ON sav.id = ssav.sale_attr_value_id AND ssav.sku_id = 106;
+```
+
+查询结果:
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201124205158601.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+可以看到这样才是我们最后需要的结果,既能将**SPU所有的销售属性及其属性值**全部查询出来,同时又能将该**SKU对象的销售属性值**取出来.两全其美.
+
+如果对于内连接,左连接,右连接还是有不清楚的,可以去看我的这篇博客:
+
+[Mysql中外连接,内连接,左连接,右连接的区别](https://blog.csdn.net/lovely__RR/article/details/108622731),里面有详细解释.
+
+### ResultMap与ResultType的区别:
+两者的区别主要就是在返回类型上.
+
+在mybatis中我们可能返回的数据类型主要就是下面这两种:
+
+- 单个集合----ResultType,ResultMap
+
+- 多重集合----ResultMap
+
+那么什么样的数据才叫单个集合,什么样的数据才叫多重集合呢?我们通过下面两张图,大家就能理解了:
+
+**单个集合**:
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020112516535762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+**多重集合**:
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020112516535787.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+看完上面两张图大家就能基本知道他们的差别了,,那么他们俩的具体使用场景又是怎样的呢?
+
+举两个例子大家就懂了
+
+在 **`获取所有用户的数据`** 的时候显然我们只需要获得用户信息即可了,并不需要在获取其他额外的数据.
+
+但是在 **`进行用户的角色校验`** 的时候,显然我们不仅需要获得该用户的相关信息,其次我们还需要获得该用户的角色信息,那么显然我们返回的数据就不能只包含用户信息,所以我们必须将数据封装成上述多重集合的形式,这样才能方便我们进行角色的校验.
+
+了解完上面的概念之后,大家基本就了解了他们两者的区别了,但是大家又要问了,上面你说 **ResultMap既能用于单个集合,又能用于多重集合,那么我们为什么不全是用ResultMap呢?还要使用ResultType呢?**
+
+这里主要是因为`ResultType虽然只针对单个集合`,但是他是`可以直接调用我们已经编写好的实体类`的,但是ResultMap则不同,它`不管如何都需要我们进行自定义`,所以主要还是用在多重集合的情况下,单个集合的情况下还是使用ResultType.
+
+这样大家基本就能了解清楚他们俩的不同了,了解完不同之后,我们再来具体的讲解一下如何使用他们:
+
+- `ResultType`
+
+ResultType使用起来就比较的简单了,上面我们已经说过了,是可以直接调用我们的实体类的,所以我们基本上就是直接copy实体类的相对路径即可了,下面是一个栗子:
+
+```java
+<select id="selectAll" resultType="com.auguigu.gmall.bean.PmsProductInfo">
+select * from pms_product_info
+</select>
+```
+
+可以看到我们只需要将我们需要返回的实体类的路径直接赋给ResultType即可,简单方便.
+
+- `ResultMap`
+
+但是ResultMap相对来说就比较麻烦,其实主要就是 **`需要告诉Mybatis你是将那几个实体类进行多重组合的`** ,这样剩下的事就可以全交给mybatis来做了.还是通过下面的栗子,我们详细讲解一下.
+
+多重集合的两个实体类:
+
+- PmsProductSaleAttr
+
+```java
+public class PmsProductSaleAttr implements Serializable {
+
+    @Id
+    @Column
+    Integer id;
+
+    @Column
+    Integer productId;
+
+    @Column
+    Integer saleAttrId;
+
+    @Column
+    String saleAttrName;
+
+    @Transient
+    List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList;
+}
+```
+
+- PmsProductSaleAttrValue
+
+```java
+public class PmsProductSaleAttrValue implements Serializable {
+    @Id
+    @Column
+    Integer id;
+
+    @Column
+    Integer productId;
+
+    @Column
+    Integer saleAttrId;
+
+    @Column
+    String saleAttrValueName;
+
+    @Transient
+    Integer isChecked;
+
+}
+```
+
+之后我们再来看一下我们在mapper.xml文件中定义的代码:
+
+```java
+<select id="selectspuSaleAttrListCheckBySku" resultMap="selectspuSaleAttrListCheckBySkuMap">
+        SELECT
+            sa.id as sa_id,
+            sav.id as sav_id,
+            sa.*,
+            sav.*,
+            if(ssav.sku_id,1,0) as isChecked
+        FROM
+            pms_product_sale_attr sa
+                INNER JOIN pms_product_sale_attr_value sav ON sa.product_id = sav.product_id
+                AND sa.sale_attr_id = sav.sale_attr_id
+                AND sa.product_id = #{productId}
+                LEFT JOIN pms_sku_sale_attr_value ssav ON sav.id = ssav.sale_attr_value_id
+                AND ssav.sku_id = #{skuId}
+                ORDER BY sav.id
+    </select>
+    <resultMap id="selectspuSaleAttrListCheckBySkuMap" type="com.auguigu.gmall.bean.PmsProductSaleAttr" autoMapping="true">
+        <result column="sa_id" property="id"></result>
+        <collection property="pmsProductSaleAttrValueList" ofType="com.auguigu.gmall.bean.PmsProductSaleAttrValue" autoMapping="true">
+            <result column="sav_id" property="id"></result>
+        </collection>
+    </resultMap>
+```
+
+在分析代码之前,我们下来看一下该SQL语句执行之后,我们获得的数据是什么样的?
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201125165357128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+可以看到我们获得数据中又好几个字段名称都是重复的,这样就使得mybatis很难去做匹配,所以我们重点就是告诉mybatis该如何去做匹配.
+
+首先ResultMap里面填的就是我们下面已经定义好的ResultMap的名字,接下来我们就重点看我们是如何来定义这个ResultMap的.
+
+首先我们先来看ResultMap部分,再来看Collection
+
+```java
+<resultMap id="selectspuSaleAttrListCheckBySkuMap" type="com.auguigu.gmall.bean.PmsProductSaleAttr" autoMapping="true">
+        <result column="sa_id" property="id"></result>
+</resultMap>
+```
+
+我们首先需要先给我们的ResultMap定义一个名称即id,之后我们就需要定义ResultMap的type,这里的type是我们多重集合中最外层的实体对象,之后我们就需要定义该实体对象的主键即可,column指的是我们定义的返回数据中的字段名,property则是指的是我们在实体类中定义的主键,剩下的字段我们通过autoMapping=true即可让mybatis帮我们自动处理了.
+
+```java
+<collection property="pmsProductSaleAttrValueList" ofType="com.auguigu.gmall.bean.PmsProductSaleAttrValue" autoMapping="true">
+            <result column="sav_id" property="id"></result>
+</collection>
+```
+
+了解完ResultMap是怎么定义的之后,collection看起来就比较简单了,这里我们就只需要看collection中的property即可,这里填的是最外层的实体类中定义的下一层集合的对象的名称,即下图所示:
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201125165357124.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+其次还有一点就是这里的type,可以看到这里的type不像上面的ResultMap一样还是type了还是用的是oftype,这样就能会更加表示出多重集合这个概念了.
 
 
