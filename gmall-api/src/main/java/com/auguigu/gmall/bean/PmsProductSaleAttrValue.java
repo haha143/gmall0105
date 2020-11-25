@@ -27,6 +27,6 @@ public class PmsProductSaleAttrValue implements Serializable {
     String saleAttrValueName;
 
     @Transient
-    String isChecked;
+    Integer isChecked;
 
 }

@@ -3,14 +3,11 @@ package com.auguigu.gmall.manage.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.auguigu.gmall.bean.PmsBaseAttrInfo;
 import com.auguigu.gmall.bean.PmsBaseAttrValue;
-import com.auguigu.gmall.manage.mapper.PmsBaseAttrInfoMapper;
-import com.auguigu.gmall.manage.mapper.PmsBaseAttrValueMapper;
+import com.auguigu.gmall.manage.mapper.*;
 import com.auguigu.gmall.service.PmsBaseAttrInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
-import tk.mybatis.mapper.util.StringUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

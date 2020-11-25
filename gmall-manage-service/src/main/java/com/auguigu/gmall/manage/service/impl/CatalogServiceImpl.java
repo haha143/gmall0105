@@ -4,9 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.auguigu.gmall.bean.PmsBaseCatalog1;
 import com.auguigu.gmall.bean.PmsBaseCatalog2;
 import com.auguigu.gmall.bean.PmsBaseCatalog3;
-import com.auguigu.gmall.manage.mapper.PmsBaseCatalo3Mapper;
-import com.auguigu.gmall.manage.mapper.PmsBaseCatalog1Mapper;
-import com.auguigu.gmall.manage.mapper.PmsBaseCatalog2Mapper;
+import com.auguigu.gmall.manage.mapper.*;
 import com.auguigu.gmall.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 

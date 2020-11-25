@@ -3,8 +3,7 @@ package com.auguigu.gmall.manage.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.auguigu.gmall.bean.PmsProductSaleAttr;
 import com.auguigu.gmall.bean.PmsProductSaleAttrValue;
-import com.auguigu.gmall.manage.mapper.PmsProductSaleAttrMapper;
-import com.auguigu.gmall.manage.mapper.PmsProductSaleAttrValueMapper;
+import com.auguigu.gmall.manage.mapper.*;
 import com.auguigu.gmall.service.PmsProductSaleAttrService;
 import org.springframework.beans.factory.annotation.Autowired;
 

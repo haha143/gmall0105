@@ -2,7 +2,7 @@ package com.auguigu.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.auguigu.gmall.bean.PmsProductImage;
-import com.auguigu.gmall.manage.mapper.PmsProductImageMapper;
+import com.auguigu.gmall.manage.mapper.*;
 import com.auguigu.gmall.service.PmsProductImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 

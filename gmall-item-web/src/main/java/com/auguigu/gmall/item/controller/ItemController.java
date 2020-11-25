@@ -1,12 +1,9 @@
 package com.auguigu.gmall.item.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.auguigu.gmall.bean.PmsProductInfo;
 import com.auguigu.gmall.bean.PmsProductSaleAttr;
-import com.auguigu.gmall.bean.PmsProductSaleAttrValue;
 import com.auguigu.gmall.bean.PmsSkuInfo;
 import com.auguigu.gmall.service.PmsProductInfoService;
-import com.auguigu.gmall.service.PmsProductSaleAttrValueService;
 import com.auguigu.gmall.service.PmsSkuInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +24,7 @@ public class ItemController {
     @RequestMapping("{skuId}.html")
     public String item(@PathVariable Integer skuId,ModelMap modelMap){
         PmsSkuInfo pmsSkuInfo=pmsSkuInfoService.selectBySkuId(skuId);
-        List<PmsProductSaleAttr>pmsProductSaleAttrList=pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId());
+        List<PmsProductSaleAttr>pmsProductSaleAttrList=pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),skuId);
 //        pmsProductSaleAttrList=pmsSkuInfoService.setCheckedSaleAttrValue(pmsSkuInfo,pmsProductSaleAttrList);
         //sku对象
         modelMap.put("skuInfo",pmsSkuInfo);

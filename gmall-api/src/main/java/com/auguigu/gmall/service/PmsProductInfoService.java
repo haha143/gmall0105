@@ -2,7 +2,6 @@ package com.auguigu.gmall.service;
 
 import com.auguigu.gmall.bean.PmsProductInfo;
 import com.auguigu.gmall.bean.PmsProductSaleAttr;
-import com.auguigu.gmall.bean.PmsProductSaleAttrValue;
 
 import java.util.List;
 
@@ -13,5 +12,5 @@ public interface PmsProductInfoService {
 
     int deleteSpuById(Integer id);
 
-    List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(Integer productId);
+    List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(Integer productId,Integer skuId);
 }

@@ -2,13 +2,9 @@ package com.auguigu.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.auguigu.gmall.bean.*;
-import com.auguigu.gmall.manage.mapper.PmsProductImageMapper;
-import com.auguigu.gmall.manage.mapper.PmsProductInfoMapper;
-import com.auguigu.gmall.manage.mapper.PmsProductSaleAttrMapper;
-import com.auguigu.gmall.manage.mapper.PmsProductSaleAttrValueMapper;
+import com.auguigu.gmall.manage.mapper.*;
 import com.auguigu.gmall.service.PmsProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
 @Service
@@ -62,20 +58,10 @@ public class PmsProductInfoServiceImpl implements PmsProductInfoService {
     }
 
     @Override
-    public List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(Integer productId) {
-        //根据当前Sku对象的productId现货到该对象所属的spu对象的销售属性
-        PmsProductSaleAttr pmsProductSaleAttr=new PmsProductSaleAttr();
-        pmsProductSaleAttr.setProductId(productId);
-        List<PmsProductSaleAttr>pmsProductSaleAttrList=pmsProductSaleAttrMapper.select(pmsProductSaleAttr);
-        //之后再根据销售属性的Id获取到该销售属性所包含的销售属性值
-        for(PmsProductSaleAttr pmsProductSaleAttr1:pmsProductSaleAttrList){
-            PmsProductSaleAttrValue pmsProductSaleAttrValue = new PmsProductSaleAttrValue();
-            pmsProductSaleAttrValue.setProductId(productId);
-            pmsProductSaleAttrValue.setSaleAttrId(pmsProductSaleAttr.getSaleAttrId());
-            List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList=pmsProductSaleAttrValueMapper.select(pmsProductSaleAttrValue);
-            pmsProductSaleAttr1.setPmsProductSaleAttrValueList(pmsProductSaleAttrValueList);
-        }
+    public List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(Integer productId,Integer skuId) {
+        List<PmsProductSaleAttr>pmsProductSaleAttrList=pmsProductSaleAttrMapper.selectspuSaleAttrListCheckBySku(productId,skuId);
         return pmsProductSaleAttrList;
     }
+
 
 }
