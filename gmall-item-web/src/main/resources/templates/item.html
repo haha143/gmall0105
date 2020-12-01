@@ -12,7 +12,7 @@
 	<body>
 		<div id="max">
 		<header>
-<input type="text" th:value="${SkuInfoHashMapjsonSt}" id="valueSku">
+<input type="text" th:value="${valueSku}" id="valueSku">
 					<div class="min">
 						<ul class="header_ul_left">
 							<li class="glyphicon glyphicon-home"> <a href="shouye.html" class="aa">首页</a></li>
@@ -1020,36 +1020,54 @@
         }
 
         function switchSkuId() {
-            // 被选中属性
-            var checkDivs = $(".redborder div");
-            var valueIds="";
-            // 拼接成属性值串
-            for (var i = 0; i < checkDivs.length; i++) {
-                var saleAttrValueDiv = checkDivs.eq(i);
-                if(i>0){
-                    valueIds= valueIds+"|";
-                }
-                valueIds=valueIds+saleAttrValueDiv.attr("value");
-            }
-            //页面上的hashjson
-            var valuesSku = $("#valuesSku").attr("value");
-            var valuesSkuJson=JSON.parse(valuesSku);
+        	//测试hash表是否已经传输到前端
+			var SkuInfoHashMapjsonStr=$('#valueSku').val();
+			alert(SkuInfoHashMapjsonStr);
+			//获取选中的销售属性值标签
+            var saleAttrValuesIds=$(".redborder div");
+            var k="";
+            //将选中的销售属性值重构成我们hash表中的K
+            $(saleAttrValuesIds).each(function(i,saleAttrValueId){
+            	k=k+$(saleAttrValueId).attr("value")+"|";
+            	// alert($(saleAttrValueId).attr("value"));
+			});
+            alert(k);
+            //将后台传过来的字符串转换成Json格式即键值对的形式
+            var SkuIdJson=JSON.parse(SkuInfoHashMapjsonStr);
+            //获取到当前选中销售属性值构成的SKU对象的ID
+            var Sku_id=SkuIdJson[k];
+            alert(Sku_id);
 
-            // 看看hash有没有
-            var skuId= valuesSkuJson[valueIds];
-            // 当前sku
-            var skuIdSelf=$("#skuId").val();
-
-            // 判断是否跳转
-            if(skuId){
-                if(skuId==skuIdSelf){
-                    $("#cartBtn").attr("class","box-btns-two");
-                }else{
-                    window.location.href="/"+skuId+".html";
-                }
-            }else{
-                $("#cartBtn").attr("class","box-btns-two-off");
-            }
+			// // 被选中属性
+			// var checkDivs = $(".redborder div");
+			// var valueIds="";
+			// // 拼接成属性值串
+			// for (var i = 0; i < checkDivs.length; i++) {
+			// 	var saleAttrValueDiv = checkDivs.eq(i);
+			// 	if(i>0){
+			// 		valueIds= valueIds+"|";
+			// 	}
+			// 	valueIds=valueIds+saleAttrValueDiv.attr("value");
+			// }
+			// //页面上的hashjson
+			// var valuesSku = $("#valuesSku").attr("value");
+			// var valuesSkuJson=JSON.parse(valuesSku);
+			//
+			// // 看看hash有没有
+			// var skuId= valuesSkuJson[valueIds];
+			// // 当前sku
+			// var skuIdSelf=$("#skuId").val();
+			//
+			// // 判断是否跳转
+			// if(skuId){
+			// 	if(skuId==skuIdSelf){
+			// 		$("#cartBtn").attr("class","box-btns-two");
+			// 	}else{
+			// 		window.location.href="/"+skuId+".html";
+			// 	}
+			// }else{
+			// 	$("#cartBtn").attr("class","box-btns-two-off");
+			// }
         }
 	</script>
 

@@ -1,7 +1,6 @@
 package com.auguigu.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.auguigu.gmall.bean.PmsProductImage;
 import com.auguigu.gmall.bean.PmsProductInfo;
 import com.auguigu.gmall.service.PmsProductImageService;
 import com.auguigu.gmall.service.PmsProductInfoService;

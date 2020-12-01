@@ -1,10 +1,14 @@
 package com.auguigu.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.auguigu.gmall.bean.*;
 import com.auguigu.gmall.manage.mapper.*;
 import com.auguigu.gmall.service.PmsSkuInfoService;
+import com.auguigu.gmall.util.RedisUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 
@@ -24,6 +28,9 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService {
 
     @Autowired
     PmsProductImageMapper pmsProductImageMapper;
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @Override
     public int saveSkuInfo(PmsSkuInfo pmsSkuInfo) {
@@ -62,8 +69,8 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService {
         return 1;
     }
 
-    @Override
-    public PmsSkuInfo selectBySkuId(Integer skuId) {
+    //从数据库中查询Sku数据
+    public PmsSkuInfo selectBySkuIdFromDB(Integer skuId) {
         PmsSkuInfo pmsSkuInfo=new PmsSkuInfo();
         pmsSkuInfo.setId(skuId);
         PmsSkuInfo pmsSkuInfo1=pmsSkuInfoMapper.selectOne(pmsSkuInfo);
@@ -83,6 +90,34 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService {
         List<PmsSkuSaleAttrValue>pmsSkuSaleAttrValueList=pmsSkuSaleAttrValueMapper.select(pmsSkuSaleAttrValue);
         pmsSkuInfo1.setPmsSkuSaleAttrValueList(pmsSkuSaleAttrValueList);
         return pmsSkuInfo1;
+    }
+
+    @Override
+    public PmsSkuInfo selectBySkuId(Integer skuId) {
+        PmsSkuInfo pmsSkuInfo=new PmsSkuInfo();
+        //连接缓存
+        Jedis jedis=redisUtil.getJedis();
+        //查询缓存
+        String skuKey="sku:"+skuId+":info";
+        String skuJson=jedis.get(skuKey);
+        //缓存不为空
+        if(StringUtils.isNotBlank(skuJson)){
+            //通过fastjson将我们的字符串转化成我们对应的Sku对象
+            pmsSkuInfo = JSON.parseObject(skuJson, PmsSkuInfo.class);
+        }
+        else{
+            //如果缓存没有,查询mysql
+            pmsSkuInfo=selectBySkuIdFromDB(skuId);
+            //mysql查询结果存储到Redis
+            if(pmsSkuInfo!=null){
+                jedis.set("sku:"+skuId+":info", JSON.toJSONString(pmsSkuInfo));
+            }
+            else{
+                //数据库中同样也不存在该数据
+            }
+        }
+        jedis.close();
+        return pmsSkuInfo;
     }
 
     @Override

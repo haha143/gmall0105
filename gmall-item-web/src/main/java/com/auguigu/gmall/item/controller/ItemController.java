@@ -47,8 +47,8 @@ public class ItemController {
             SkuInfoHashmap.put(k,v);
         }
         //将该hash表传给前端,并且一直存放在前端
-        String SkuInfoHashMapjsonSt = JSON.toJSONString(SkuInfoHashmap);
-        modelMap.put("valueSku",SkuInfoHashMapjsonSt);
+        String SkuInfoHashMapjsonStr = JSON.toJSONString(SkuInfoHashmap);
+        modelMap.put("valueSku",SkuInfoHashMapjsonStr);
         return "item";
     }
 

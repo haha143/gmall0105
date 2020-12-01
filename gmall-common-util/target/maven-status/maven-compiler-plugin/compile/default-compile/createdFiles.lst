@@ -1,2 +1,4 @@
-com\auguigu\gmall\util\ConstantUtil.class
 com\auguigu\gmall\util\PmsUploadUtil.class
+com\auguigu\gmall\util\ConstantUtil.class
+com\auguigu\gmall\util\RedisUtil.class
+com\auguigu\gmall\conf\RedisConfig.class
