@@ -1047,5 +1047,522 @@ public class PmsProductSaleAttrValue implements Serializable {
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201125165357124.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
 其次还有一点就是这里的type,可以看到这里的type不像上面的ResultMap一样还是type了还是用的是oftype,这样就能会更加表示出多重集合这个概念了.
+## 11月25日:
 
+### 前端对后端传输的Hash数据进行解析:
+
+HTML-CSS的基本选择器:
+
+- ID选择器
+
+看到ID,其实大家就都能首先想到一点,那就是一般的ID都是唯一的,所以我们一般在页面上面一个ID也只会使用一次.
+
+定义规范一般是这样的:<input type="text" th:value="${valueSku}" id="valueSku">
+
+这样我们便能通过下面的命令来进行ID的选择获取到该对象,并且 **该对象是唯一的**:
+
+**#valueSKU(即ID名){}**, 重点是前面的#号
+
+- 类选择器
+
+类选择也叫作样式选择器,一般就是页面控件上class里面的内容例如:**<div class="haha">你我山巅自相逢,予你与我遇轻风.</div>**
+
+之后我们便可以通过下面的命令来进行class的选择获取该对象, **该class对象是唯一的,但是使用该class的对象并不一定是唯一的**:
+
+**.haha(即类名){}**,重点是前面的.号
+
+- 标签选择器
+
+HTML中我们有很多的标签,比如最常见的<div>,<p>等等,看到这些大家就知道了,这些标签在页面上一般都是不唯一的,一般都是有好几个的举个例子:
+
+**<div class="haha"> 云想衣裳花想容， 春风拂槛露华浓.</div>**
+
+**<div class="hihi">若非群玉山头见,会向瑶台月下逢.</div>**
+
+可以看到这两个都是div标签,但是他们的类缺失不一样的.
+
+之后我们便可以通过下面的命令来进行标签的选择来获取到该对象们,**这些对象一般都是不唯一的**:
+
+**div{}**,直接通过标签名即可获取
+
+了解完上面三个之后,我们便可以来了解一下下面的代码是什么意思了
+
+```html
+var saleAttrValuesIds=$(".redborder div");
+​            $(saleAttrValuesIds).each(function(i,saleAttrValueId){
+​            	alert($(saleAttrValueId).attr("value"));
+​			});
+```
+
+可以看到我们现实通过类选择器获取到class=redborder的所有空间,但是后面我们又加了这么一段代码:"  div",意思是选取下一层级中所有的div标签,那么显然这里我们最后获得的就是一个div标签数组,
+
+接下来我们再看就很简单了,就是一个简单的对div标签数组的遍历,遍历获得所有div标签中的value值 
+
+最后这就是我们修改好的代码:
+
+```html
+function switchSkuId() {
+        	//测试hash表是否已经传输到前端
+			var SkuInfoHashMapjsonStr=$('#valueSku').val();
+			alert(SkuInfoHashMapjsonStr);
+            // 被选中属性
+            var checkDivs = $(".redborder div");
+            var valueIds="";
+            // 拼接成属性值串
+            for (var i = 0; i < checkDivs.length; i++) {
+                var saleAttrValueDiv = checkDivs.eq(i);
+                if(i>0){
+                    valueIds= valueIds+"|";
+                }
+                valueIds=valueIds+saleAttrValueDiv.attr("value");
+            }
+            //页面上的hashjson
+            var valuesSku = $("#valuesSku").attr("value");
+            var valuesSkuJson=JSON.parse(valuesSku);
+
+            // 看看hash有没有
+            var skuId= valuesSkuJson[valueIds];
+            // 当前sku
+            var skuIdSelf=$("#skuId").val();
+
+            // 判断是否跳转
+            if(skuId){
+                if(skuId==skuIdSelf){
+                    $("#cartBtn").attr("class","box-btns-two");
+                }else{
+                    window.location.href="/"+skuId+".html";
+                }
+            }else{
+                $("#cartBtn").attr("class","box-btns-two-off");
+            }
+        }
+```
+
+## 11月26日:
+
+### Redis安装步骤:
+
+- 通过winscp将Redis的压缩包上传到服务器的/opt路径下,或者直接在/opt路径下运行下面的命令:
+
+  ```java
+  # wget http://download.redis.io/releases/redis-3.0.4.tar.gz
+  ```
+
+  这样我们就已经将Redis下载完成了
+
+- 解压
+
+  ```java
+  tar -zxvf redis-3.0.4.tar.gz
+  ```
+
+- 之后依次运行下面的命令:
+
+  ```java
+  make
+  make install
+  ```
+
+  
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143312793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+  这样就说明已经安装完成了
+
+- 将redis-cli和redis-server命令添加到环境变量里面,这样我们之后就可以在任意路径下使用该命令了,不用每次先运行:
+
+  find / -name redis-cli查找redis-cli的位置再运行之后的命令了
+
+  首先先定位redis-cli的位置
+
+  ```java
+  find / -name redis-cli
+  ```
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143335128.png#pic_center)
+
+  之后复制该路径
+
+  修改profile文件即配置环境变量
+
+  ```java
+  vi /etc/profile
+  ```
+
+  在最后添加下面的代码
+
+  ```java
+  export PATH=$PATH:/opt/redis-3.0.4/src/redis-cli
+  export PATH=$PATH:/opt/redis-3.0.4/src/redis-server  
+  ```
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143351668.png#pic_center)
+
+  记住后面的路径名需要和你自己的相适应,之后保存退出即可.
+
+  之后重新刷新一遍profile文件即可,这样redis-cli命令就能在任意路径下使用了
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143404674.png#pic_center)
+
+  最后就是修改Redis的配置文件了
+
+- 将Redis的配置文件拷贝到/etc目录下,当前命令在redis-3.0.4目录下使用
+
+  ```java
+  # cp redis.conf /etc/
+  ```
+
+  修改配置文件:
+
+  ```java
+  vi /etc/redis.conf
+  ```
+
+  添加这段代码,主要是让Redis能够在后台运行以及日志的存储位置:
+
+  ```java
+  #是否后台运行 
+  daemonize yes
+  #pid文件保存路径 pidfile /usr/redis/run/redis_6379.pid 
+  #端口号 port 6379
+  #接收来自于哪个个ip地址的请求，如果不设置，将处理所有请求 bind 127.0.0.1 
+  #超时，单位为秒 timeout 300 
+  #log日志级别分为4级，debug,verbose,notice,warning,生产环境一般开启notice loglevel notice #log日志位置，不设置，默认打印命令行终端 logfile stdout 
+  #数据库个数，默认使用0数据库 datebase 16 
+  #设置redis进行数据库镜像的频率,单位为秒，意思为当900秒之内有1个key发生变化时，进行镜像备份 save 900 1 save 300 10 save 60 10000 
+  #进行镜像备份是否压缩 rdbcompression yes 
+  #镜像备份文件名 dbfilename dump.rdb 
+  #数据库镜像存放位置 dir /usr/redis/var/ 
+  #设置该数据库是否为其他数据库的从数据库 slaveof yes 
+  #设置同时链接的客户端数量 maxclients 12800 
+  #是否默认备份数据库镜像到磁盘 appendonly no 
+  #设置对appendonly.aof同步的频率，always表示每次读写都进行，everysec表示只对写进行累积，每秒同步一次 appendfsync everysec 
+  #是否开启虚拟内存 vm-enabled no vm-swap-file /tmp/redis.swap vm-max-memory 0 vm-page 134217728 vm-page-size 32 vm-max-threads 4 hash-max-zipmap-entries 512 hash-max-zipmap-value 64 list-max-ziplist-entries 512 list-max-ziplist-value 64
+  set-max-intset-entries 512 activerehashing yes
+  ```
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143450592.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143500431.png#pic_center)
+
+  之后保存退出即可,这样我们的Redis就已经配置完成了,之后我们就可以启动Redis了
+
+  通过下面的命令启动redis并且指定redis的配置文件:
+
+  ```java
+  redis-server /etc/redis.conf
+  ```
+
+  虽然我们不会看到像网上一样的图形化界面,但是我们去查看一下日志文件,就能看到了:
+
+  ```java
+  vi /var/log/redis/redis-server.log
+  ```
+
+  这样我们就能看到redis的图形化界面了:
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143513940.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+  之后我们在开一个窗口,输入下面的命令,如果能够看到下面的界面,说明redis就正常启动了:
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143535850.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+  ```java
+  redis-cli
+  ```
+
+
+
+  如果还是不放心的话,我们还可以通过下面的命令进行进一步的确认:
+
+  ```java
+  ps ajx |grep redis
+  ```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143524863.png#pic_center)
+
+  可以看到服务端与客户端都已经启动了
+
+  之后我们就需要在防火墙里面将6379,redis的默认端口号打开
+
+  ```java
+  firewall-cmd --zone=public --permanent --add-port=6379/tcp
+  firewall-cmd --reload
+  firewall-cmd --list-all 
+  ```
+
+  这样就结束,但是如果你是在阿里头的服务器上安装的,那么你还需去阿里云的安全组里面将6379端口打开
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143601812.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+  这样我们关于redis就已经配置安装启动完成了.
+
+### 整合Springboot和Redis
+
+- 向相应的模块引入Redis的pom依赖
+
+  ```java
+  <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.9.0</version>
+  </dependency>
+  ```
+
+- 创建Redis的工具类-----(初始化Redis的连接池到Spring容器中)
+
+  ```java
+  public class RedisUtil {
+      private  JedisPool jedisPool;
+      //初始化连接池
+      public void initPool(String host,int port ,int database,String password){
+          System.out.println(host+"|"+port+"|"+"password");
+          JedisPoolConfig poolConfig = new JedisPoolConfig();
+          poolConfig.setMaxTotal(200);
+          poolConfig.setMaxIdle(30);
+          poolConfig.setBlockWhenExhausted(true);
+          poolConfig.setMaxWaitMillis(10*1000);
+          poolConfig.setTestOnBorrow(true);
+          jedisPool=new JedisPool(poolConfig,host,port,20*1000,password);
+      }
+      //从连接吃中返回一个连接给调用者
+      public Jedis getJedis(){
+          Jedis jedis = jedisPool.getResource();
+          return jedis;
+      }
+  }
+  ```
+
+  
+
+- 创建Spring整合Redis的配置类-----(创建Redis连接处到Spring中)   
+
+  Redis的配置文件
+
+  ```java
+  @Configuration
+  public class RedisConfig {
+  
+      //读取配置文件中的redis的ip地址
+      @Value("${spring.redis.host:disabled}")
+      private String host;
+  
+      @Value("${spring.redis.port:6379}")
+      private int port;
+  
+      @Value("${spring.redis.database:0}")
+      private int database;
+  
+      @Value("${spring.redis.password:@Yzr143253}")
+      private String password;
+  
+      @Bean
+      public RedisUtil getRedisUtil(){
+          if(host.equals("disabled")){
+              return null;
+          }
+          RedisUtil redisUtil=new RedisUtil();
+          redisUtil.initPool(host,port,database,password);
+          return redisUtil;
+      }
+  
+  }
+  ```
+
+- 测试Redis连接-----Bug解决
+
+**Class not found: "com.auguigu.gmall.GmallManageServiceApplicationTests"**
+
+这一个bug其实大家很明显就能知道这个bug是什么意思,意思就是没有找到我们的测试类,这里主要通过下面的方法来解决:
+
+通过勾选设置里面的该选项:
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130143543386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
+之后保险起见,我们最好在Maven选项里面依次点击这些按钮,就是将还模块安装到本地,这样项目就是一定存在的
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130143745749.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
+这样操作结束之后,就能找到我们相应的测试类了,但是抱歉,后续应该还会出现这样的bug.
+
+**Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.18.1:test (default-test) on project** 
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130142150911.png)
+
+这个Bug的具体意思就是我们通过Maven尽心打包的时候因为项目中的测试文件可能有损导致我们的打包操作失败了.
+因为我们这里是Test类可能有错,所以我们可以直接忽略测试类,这样我们就能够正常打包了,这里我们可以通过勾选下面的方框,或者也可以直接在Maven选项里勾选:
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130144453926.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
+或者
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130144613872.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
+当我们看到Maven项目下面的test按钮变暗之后,就说明已经跳过测试类了.
+但是我们的测试项目正式启动之后还会出现下面的错误
+
+**Cannot determine embedded database driver class for database type NONE**
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130142237125.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
+这里我们启动之后他会报`java.lang.IllegalStateException: Failed to load ApplicationContext`的错误
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130142309202.png)
+
+我们接着去查看他的相关错误的时候我们会发现主要错误是这个`Cannot determine embedded database driver class for database type NONE`,意思就是没有找到相应的数据库驱动,
+
+百度之后,网上解释说:**`因为spring boot默认会加载org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration类，DataSourceAutoConfiguration类使用了@Configuration注解向spring注入了dataSource bean。因为工程中没有关于dataSource相关的配置信息，当spring创建dataSource bean因缺少相关的信息就会报错。`**
+
+所以我们需要在Springboot的测试启动类上面修改该注解:
+**@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})**
+这样之后就能启动了,但是自己测试之后还是出现一模一样的错误.
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130142237125.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130142309202.png)
+这时候我想了想:
+
+我们的数据库驱动一般都是编写在application参数文件里面的,并且application参数文件也刚好是我们的ApplicationContext,所以不出意外,应该是**Springboot测试启动类根本就`没有自动加载我们的application参数文件`,所以我们只能`手动把这个文件加进去了`**,这里我们可以直接通过添加下面的注解实现:
+`@PropertySource(value={"classpath:application.properties"})`
+这样我们再次启动我们的测试启动类就能发现已经能够正常启动了,并且已经能够正常连接到我们的Redis服务了.
+
+
+
+但是这里我们要注意一个**路径的问题**,这里的classpath就已经表示是在resources文件夹下面了,所以我们的application文件的路径就只需要写resources下面的路径即可.
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130152148913.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
+并且自己测试之后发现,在导入ApplicationContext失败的情况下,不需要执行这一步:**@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})**
+
+可以直接手动添加application.properties文件,就能够运行成功.
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201130153236869.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
+
+这里我们虽然测试成功了,但是自己在编写service层的时候还是遇到了一些问题还是配置文件--RedisConfig没有扫描到的问题,但是这个问题其实已经在上面解决了,只需要我们将我们的Springboot启动类转移到com.auguigu.com的路径之下,就能够正常扫描到我们的配置文件以及相应的工具类了:
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020120114371012.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+如果是像我们之前的项目即完整的一个项目,并不是采用微服务的形式,那么我们直接就可以通过@Configuration注解将该配置文件注入到Spring容器之中,再在配置文件里面通过@Bean注入我们需要的各种Bean.
+
+但是因为我们现在使用的微服务的形式,那么很显然,并不像我们之前的项目一样,他是由多个模块组合而成的,那么很显然各模块之间的通信就会比较麻烦,就比方说我们上面的配置文件读取的问题.所以我们必须要将我们**Springboot启动类与我们平常的配置文件的层级对齐 **这样才能够扫描到我们的配置文件.
+
+或者我们也可以通过在Springboot启动类上添加 @ComponentScan进行扫描,这样也能够将我们的配置文件扫描到,但是这样的方式会严重影响我们程序的性能,毕竟之前我们一般只通过@MapperScan扫描我们相应的Mapper文件,但是如果再去扫描我们的 配置文件的话会严重影响我们程序的性能.
+
+### 设计Redis数据存储策略:
+
+一般都是下面这种存储策略:
+
+**数据对象名:数据对象ID:对象属性**
+
+举例:  
+
+User:1001:username
+
+User:1001:password
+
+设计完数据存储策略之后我们便可以重新改写我们相应的查询逻辑了:
+
+```java
+    //从数据库中查询Sku数据
+    public PmsSkuInfo selectBySkuIdFromDB(Integer skuId) {
+        PmsSkuInfo pmsSkuInfo=new PmsSkuInfo();
+        pmsSkuInfo.setId(skuId);
+        PmsSkuInfo pmsSkuInfo1=pmsSkuInfoMapper.selectOne(pmsSkuInfo);
+        //sku的图片集合
+        PmsSkuImage pmsSkuImage=new PmsSkuImage();
+        pmsSkuImage.setSkuId(skuId);
+        List<PmsSkuImage> pmsSkuImageList=pmsSkuImageMapper.select(pmsSkuImage);
+        pmsSkuInfo1.setPmsSkuImageList(pmsSkuImageList);
+        //平台属性
+        PmsSkuAttrValue pmsSkuAttrValue=new PmsSkuAttrValue();
+        pmsSkuAttrValue.setSkuId(skuId);
+        List<PmsSkuAttrValue>pmsSkuAttrValueList=pmsSkuAttrValueMapper.select(pmsSkuAttrValue);
+        pmsSkuInfo1.setPmsSkuAttrValueList(pmsSkuAttrValueList);
+        //销售属性
+        PmsSkuSaleAttrValue pmsSkuSaleAttrValue=new PmsSkuSaleAttrValue();
+        pmsSkuSaleAttrValue.setSkuId(skuId);
+        List<PmsSkuSaleAttrValue>pmsSkuSaleAttrValueList=pmsSkuSaleAttrValueMapper.select(pmsSkuSaleAttrValue);
+        pmsSkuInfo1.setPmsSkuSaleAttrValueList(pmsSkuSaleAttrValueList);
+        return pmsSkuInfo1;
+    }
+
+    @Override
+    public PmsSkuInfo selectBySkuId(Integer skuId) {
+        PmsSkuInfo pmsSkuInfo=new PmsSkuInfo();
+        //连接缓存
+        Jedis jedis=redisUtil.getJedis();
+        //查询缓存
+        String skuKey="sku:"+skuId+":info";
+        String skuJson=jedis.get(skuKey);
+        //缓存不为空
+        if(StringUtils.isNotBlank(skuJson)){
+            //通过fastjson将我们的字符串转化成我们对应的Sku对象
+            pmsSkuInfo = JSON.parseObject(skuJson, PmsSkuInfo.class);
+        }
+        else{
+            //如果缓存没有,查询mysql
+            pmsSkuInfo=selectBySkuIdFromDB(skuId);
+            //mysql查询结果存储到Redis
+            if(pmsSkuInfo!=null){
+                jedis.set("sku:"+skuId+":info", JSON.toJSONString(pmsSkuInfo));
+            }
+        }
+        jedis.close();
+        return pmsSkuInfo;
+    }
+```
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143729633.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+测试完成之后可以看到我们的数据已经成功存储到我们的redis中了,之后如果再次读取到相应的Sku数据就可以直接从内存中读取到,不用再去数据库中读取了
+
+## 12月1日:
+
+### Redis的常见问题:
+
+- 缓存穿透
+- 缓存击穿
+
+- 缓存雪崩
+
+我们首先先来了解一下这三者分别代表了什么意思.
+
+- 缓存穿透
+
+  
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201144000478.jpg#pic_center)
+
+  缓存穿透指的是用户持续访问了一个**数据库中根本就没有的数据**,使得大量这样的访问直接怼到了数据库上,使得数据库最后直接崩掉.
+
+  我们也可以通过下面的图来理解:
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143756894.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
+
+- 缓存击穿
+
+  
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201144015237.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+  缓存击穿指的是,由于各种原因导致Redis中的一个热点Key( 目前访问人数较多的数据可以理解成 **微博热搜** )失效了,这样突然大量的访问就直接又怼到了数据库上,导致数据库也是直接就崩掉了.
+
+  我们也可以通过下面的图来理解:
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143848837.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+- 缓存雪崩
+
+  
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201144034719.jpg#pic_center)
+
+  缓存雪崩指的是缓存中的大量数据在同一个时间段内失效,导致大量对于这部分数据的访问直接怼到了数据库上,导致数据库直接就崩掉了.
+
+  我们也可以通过下面的图来理解:
+
+=
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143901295.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70#pic_center)
+
+了解完三者的概念之后,我们再来横向对比一下三者的不同点:
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201201143756998.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xvdmVseV9fUlI=,size_16,color_FFFFFF,t_70)
 
