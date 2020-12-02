@@ -7,7 +7,7 @@ import java.util.List;
 public interface PmsSkuInfoService {
     int saveSkuInfo(PmsSkuInfo pmsSkuInfo);
 
-    PmsSkuInfo selectBySkuId(Integer skuId);
+    PmsSkuInfo selectBySkuId(Integer skuId,String ip);
 
     List<PmsSkuInfo> getSkuInfosBySpu(Integer productId);
 

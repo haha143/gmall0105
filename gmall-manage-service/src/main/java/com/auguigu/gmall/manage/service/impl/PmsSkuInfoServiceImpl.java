@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PmsSkuInfoServiceImpl implements PmsSkuInfoService {
@@ -31,6 +32,7 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService {
 
     @Autowired
     RedisUtil redisUtil;
+
 
     @Override
     public int saveSkuInfo(PmsSkuInfo pmsSkuInfo) {
@@ -93,7 +95,8 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService {
     }
 
     @Override
-    public PmsSkuInfo selectBySkuId(Integer skuId) {
+    public PmsSkuInfo selectBySkuId(Integer skuId,String ip) {
+        System.out.println("ip:"+ip+"的机器进入访问,"+"进程名称为:"+Thread.currentThread().getName());
         PmsSkuInfo pmsSkuInfo=new PmsSkuInfo();
         //连接缓存
         Jedis jedis=redisUtil.getJedis();
@@ -102,18 +105,54 @@ public class PmsSkuInfoServiceImpl implements PmsSkuInfoService {
         String skuJson=jedis.get(skuKey);
         //缓存不为空
         if(StringUtils.isNotBlank(skuJson)){
+            System.out.println("ip:"+ip+"的机器进入访问,"+"进程名称为:"+Thread.currentThread().getName()+"已经成功拿到缓存中的数据");
             //通过fastjson将我们的字符串转化成我们对应的Sku对象
             pmsSkuInfo = JSON.parseObject(skuJson, PmsSkuInfo.class);
         }
         else{
+            System.out.println("ip:"+ip+"的机器进入访问,"+"进程名称为:"+Thread.currentThread().getName()+"开始申请分布式锁:"+"sku:"+skuId+":lock");
             //如果缓存没有,查询mysql
-            pmsSkuInfo=selectBySkuIdFromDB(skuId);
-            //mysql查询结果存储到Redis
-            if(pmsSkuInfo!=null){
-                jedis.set("sku:"+skuId+":info", JSON.toJSONString(pmsSkuInfo));
+            //设置分布式锁,避免缓存击穿
+            //设置每个进程特定的Id
+            String token= UUID.randomUUID().toString();
+            String OK=jedis.set("sku:"+skuId+":lock",token,"nx","px",10*1000);
+            if(StringUtils.isNotBlank(OK)&&OK.equals("OK")){
+                System.out.println("ip:"+ip+"的机器进入访问,"+"进程名称为:"+Thread.currentThread().getName()+"已经申请到分布式锁:"+"sku:"+skuId+":lock"+"过期时间为10秒");
+                pmsSkuInfo=selectBySkuIdFromDB(skuId);
+
+                try {
+                    Thread.sleep(1000*7);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //mysql查询结果存储到Redis
+                if(pmsSkuInfo!=null){
+                    //过期时间随机避免缓存雪崩
+                    jedis.setex("sku:"+skuId+":info", (int) (10*Math.random()*10),JSON.toJSONString(pmsSkuInfo));
+                }
+                else{
+                    //数据库中同样也不存在该数据,也传到Redis中,避免缓存穿透
+                    jedis.setex("sku:"+skuId+":info",30,JSON.toJSONString(""));
+                }
+                System.out.println("ip:"+ip+"的机器进入访问,"+"进程名称为:"+Thread.currentThread().getName()+"使用完毕了,释放了分布式锁:"+"sku:"+skuId+":lock");
+                //在访问mysql之后,需要将分布式锁释放掉
+                String locktoken=jedis.get("sku:"+skuId+":lock");
+                //确保每个进程删除的是自己的锁
+                if(StringUtils.isNotBlank(locktoken)&&locktoken.equals(token)){
+                    jedis.del("sku:"+skuId+":lock");
+                }
             }
             else{
-                //数据库中同样也不存在该数据
+                System.out.println("ip:"+ip+"的机器进入访问,"+"进程名称为:"+Thread.currentThread().getName()+"没有申请到分布式锁:"+"sku:"+skuId+":lock"+"已经开始自旋");
+                try {
+                    //进程休眠几秒之后,开始自旋
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //开始自旋
+                return selectBySkuId(skuId,ip);
             }
         }
         jedis.close();

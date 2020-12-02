@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +27,10 @@ public class ItemController {
     PmsProductInfoService pmsProductInfoService;
 
     @RequestMapping("{skuId}.html")
-    public String item(@PathVariable Integer skuId,ModelMap modelMap){
-        PmsSkuInfo pmsSkuInfo=pmsSkuInfoService.selectBySkuId(skuId);
+    public String item(@PathVariable Integer skuId, ModelMap modelMap, HttpServletRequest request){
+        String remoteAddr=request.getRemoteAddr();//直接获取ip地址
+        //request.getHeader("");//Nginx负载均衡
+        PmsSkuInfo pmsSkuInfo=pmsSkuInfoService.selectBySkuId(skuId,remoteAddr);
         List<PmsProductSaleAttr>pmsProductSaleAttrList=pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),skuId);
 //        pmsProductSaleAttrList=pmsSkuInfoService.setCheckedSaleAttrValue(pmsSkuInfo,pmsProductSaleAttrList);
         //sku对象
